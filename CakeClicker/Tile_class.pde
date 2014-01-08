@@ -3,7 +3,7 @@ class Tile {
   int size;
   int[] improvements = new int[2];
   int owner;
-int city;
+  int city;
 
   Tile(int loci, int locj, int city_, int owner_) {
     city = city_;
@@ -22,6 +22,14 @@ int city;
     colorMode(HSB, 360, 100, 100, 100);
     fill(100, 100, 100);
     rect(loc.x, loc.y, size, size);
+    if (owner == 1) {
+      fill(0, 100, 100, 50);
+      rect(loc.x, loc.y, size, size);
+    } 
+    else if (owner == 2) {
+      fill(240, 100, 100, 50);
+      rect(loc.x, loc.y, size, size);
+    }
   }
 }
 

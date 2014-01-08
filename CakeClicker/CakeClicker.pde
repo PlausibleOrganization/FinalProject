@@ -13,7 +13,15 @@ void setup() {
   c = new Clicker();
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
+      //      if ((i + j) % 13 == 0) {
+      //        tiles[i][j] = new Tile(i, j, 0, 1);
+      //      } 
+      //      else if ((i + j) % 7 == 0) {
+      //        tiles[i][j] = new Tile(i, j, 0, 2);
+      //      }
+      //      else {
       tiles[i][j] = new Tile(i, j, 0, 0);
+      //}
     }
   }
 }
