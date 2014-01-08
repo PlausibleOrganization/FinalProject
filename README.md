@@ -1,4 +1,4 @@
 FinalProject
 ============
-**Cookie Clicker**
+**Cake Clicker**
 
