@@ -21,14 +21,15 @@ class Tile {
      } */
     colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
-      fill(100, 100, 100);
+      fillV(100, 100, 100);
     } 
     else if (owner == 0) {
-      fill(0, 100, 100, 50);
+      fillV(0, 100, 100, 50);
     } 
     else if (owner == 1) {
-      fill(240, 100, 100);
+      fillV(240, 100, 100, 50);
     }
+    rectMode(CORNER);
     rect(loc.x, loc.y, size, size);
   }
 }

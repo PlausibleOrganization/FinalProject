@@ -2,7 +2,7 @@ class Clicker {
   PVector loc;
   int size;
   boolean clicked;
-boolean allowRun;
+  boolean allowRun;
 
   Clicker() {
     loc = new PVector(width-200, 50);
