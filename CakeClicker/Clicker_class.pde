@@ -4,7 +4,7 @@ class Clicker {
   boolean clicked;
 
   Clicker() {
-    loc = new PVector(width-200, 0);
+    loc = new PVector(width-200, 50);
     size = 200;
     clicked = false;
   }

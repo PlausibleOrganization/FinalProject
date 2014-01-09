@@ -22,16 +22,14 @@ class Tile {
     colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
       fill(100, 100, 100);
-      rect(loc.x, loc.y, size, size);
     } 
     else if (owner == 0) {
       fill(0, 100, 100, 50);
-      rect(loc.x, loc.y, size, size);
     } 
     else if (owner == 1) {
       fill(240, 100, 100);
-      rect(loc.x, loc.y, size, size);
     }
+    rect(loc.x, loc.y, size, size);
   }
 }
 
