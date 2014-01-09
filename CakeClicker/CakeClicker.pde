@@ -6,6 +6,7 @@ int tileSize = 80;
 Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
+boolean mouseReleased;
 
 void setup() {
   size(1000, 800);
@@ -37,6 +38,14 @@ void draw() {
         }
       }
     }
+  }
+}
+void mousePressed() {
+}
+
+void mouseReleased() {
+  for (int i = 0; i < players.length; i++) {
+    players[i].c.allowRun = true;
   }
 }
 
