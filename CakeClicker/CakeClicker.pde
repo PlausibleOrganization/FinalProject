@@ -42,7 +42,7 @@ void draw() {
     }
   }
 }
-void mousePressed() {
+/*void mousePressed() {
   if (mouseButton == LEFT) {
     briScale-=.1;
   } 
@@ -51,7 +51,7 @@ void mousePressed() {
   }
   println(briScale);
 }
-
+*/
 void mouseReleased() {
   for (int i = 0; i < players.length; i++) {
     players[i].c.allowRun = true;
