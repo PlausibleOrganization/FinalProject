@@ -1,16 +1,14 @@
 class Tile {
   PVector loc;
   int size;
-  int[] improvements = new int[2];
+  int improvement;
   int owner;
   int city;
 
   Tile(int loci, int locj, int city_, int owner_) {
     city = city_;
     owner = owner_;
-    for (int i = 0;  i < improvements.length; i++) {
-      improvements[i] = 0;
-    }
+    improvement = 0;
     size = tileSize;
     loc = new PVector(loci*size, locj*size);
   }
