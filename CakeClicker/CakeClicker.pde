@@ -1,5 +1,5 @@
 PVector gameMode;
-PImage cake;
+PImage cake, hole, assembly, city, cursor, dark, rocket, machine, witch;
 int tilesX = 10;
 int tilesY = 10;
 int tileSize = 80;
@@ -12,6 +12,14 @@ float briScale;
 void setup() {
   size(1000, 800);
   cake = loadImage("Cake.png");
+  hole = loadImage("Black_Hole.png");
+  assembly = loadImage("Assembly.png");
+  city = loadImage("City.png");
+  cursor = loadImage("Cursor.png");
+  dark = loadImage("Dark.png");
+  rocket = loadImage("Rocket.png");
+  machine = loadImage("Space_Machine.png");
+  witch = loadImage("Witchcraft");
   //x==0 is for menus, x==1 is for the game
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(1, 0);
@@ -41,17 +49,15 @@ void draw() {
       }
     }
   }
-}
-/*void mousePressed() {
-  if (mouseButton == LEFT) {
-    briScale-=.1;
-  } 
-  else {
+  if (key == '+') {
     briScale+=.1;
+  } 
+  if (key == '_') {
+    briScale-=.1;
   }
   println(briScale);
 }
-*/
+
 void mouseReleased() {
   for (int i = 0; i < players.length; i++) {
     players[i].c.allowRun = true;
