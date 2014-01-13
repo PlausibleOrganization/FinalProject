@@ -3,10 +3,8 @@ class Tile {
   int size;
   int improvement;
   int owner;
-  int city;
 
-  Tile(int loci, int locj, int city_, int owner_) {
-    city = city_;
+  Tile(int loci, int locj, int owner_) {
     owner = owner_;
     improvement = 0;
     size = tileSize;
@@ -14,10 +12,12 @@ class Tile {
   }
 
   void display() {
+    colorMode(HSB, 360, 100, 100);
+    strokeWeight(1);
+    stroke(0, 0, 0);
     /* for (int i = 0; i < improvements.length; i++) {
      display the image
      } */
-    colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
       fillV(100, 100, 100);
     } 

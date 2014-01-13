@@ -10,13 +10,6 @@ void save() {
 
   for (int i = 0; i < tilesX + 1; i++) {
     for (int j = 0; j < tilesY + 1; j++) {
-      int k;
-      Tile tile = tiles[i][j];
-      PVector loc;
-      int size;
-      int improvement;
-      int owner;
-      int city;
     }
   }
 }

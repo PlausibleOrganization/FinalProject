@@ -43,12 +43,12 @@ class Player {
     //end turn button
     rectMode(CORNER);
     fillV(255);
-    rect(width-175, height-137.5, 150, 75);
+    rect(width-175, height-300, 150, 75);
     fillV(0);
     textSize(25);
-    text("End turn", width-100, height-100);
-    if (button(width-175, height-137.5, 150, 75) && allowEnd) {  
-      gameMode.y++;
+    text("End turn", width-100, height-255);
+    if (button(width-175, height-300, 150, 75) && allowEnd) {  
+      turn++;
       for (int i = 0; i < players.length; i++) {
         players[i].allowEnd = false;
       }
