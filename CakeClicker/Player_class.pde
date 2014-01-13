@@ -4,23 +4,33 @@ class Player {
   Clicker c;
   int id;
   boolean allowEnd;
+  ArrayList<Unit> units = new ArrayList<Unit>();
+  Unit test;
 
   Player(int id_) {
     id = id_;
     cakes = 0;
     c = new Clicker();
     allowEnd = true;
+    test = new Unit(0, 0, 0);
   }
 
   void update() {
+    test.update();
     c.update();
     if (c.clicked) {
       cakes++;
       // mouseReleased = false;
     }
+    for (int i = units.size() - 1; i > 0; i++) {
+      Unit unit = units.get(i);
+      unit.display();
+      unit.update();
+    }
   }
 
   void display() {
+  test.display();
     c.display();
     if (id == 0) {
       fillV(0, 100, 100);
@@ -55,3 +65,4 @@ class Player {
     }
   }
 }
+

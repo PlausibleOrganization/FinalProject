@@ -2,8 +2,9 @@ class Unit {
   PVector loc;
   String name;
   float atk, def, hp;
-  int range, id;
+  int range, id, moved;
   PImage img;
+  boolean selected;
 
   Unit(int id_, float x, float y) {
     id = id_;
@@ -38,10 +39,16 @@ class Unit {
     }
   }
   void display() {
-    imageV(img, tileSize*loc.x, tileSize*loc.y);
+    imageV(img, tileSize*(loc.x), tileSize*(loc.y), 20, 20);
   }
 
   void update() {
+  }
+
+  void selectMenu() {
+    rectMode(CENTER);
+    rect(width/2, height/2, 100, 500);
+    rectMode(CORNER);
   }
 }
 
