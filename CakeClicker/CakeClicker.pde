@@ -11,6 +11,7 @@ float turn;
 PauseMenu p;
 Settings s;
 StartMenu st;
+ArrayList<Unit> units = new ArrayList<Unit>();
 
 void setup() {
   size(1000, 800);

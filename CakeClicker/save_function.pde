@@ -1,4 +1,4 @@
-void save() {
+void saveData() {
   JSONArray saveData = new JSONArray();
   JSONObject master = new JSONObject();
   master.setInt("master", 0);
@@ -10,6 +10,10 @@ void save() {
 
   for (int i = 0; i < tilesX + 1; i++) {
     for (int j = 0; j < tilesY + 1; j++) {
+      JSONObject data = new JSONObject();
+      data.setInt("id", tilesX*j + i + 1);
     }
   }
+  saveJSONArray(saveData, "saveData.png");
 }
+
