@@ -14,6 +14,6 @@ void saveData() {
       data.setInt("id", tilesX*j + i + 1);
     }
   }
-  saveJSONArray(saveData, "saveData.png");
+  saveJSONArray(saveData, "saveData.txt");
 }
 
