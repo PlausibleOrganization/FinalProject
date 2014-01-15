@@ -16,6 +16,9 @@ class StartMenu {
     fill(240, 100, 100);
     textAlign(CENTER);
     text("START GAME", width/2, height*7/18);
+    textSize(100);
+    fill(360);
+    text("CAKE CLICKER", width/2, height/4);
   }
   void update() {
     //if clicked, then start game

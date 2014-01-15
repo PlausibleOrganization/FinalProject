@@ -1,5 +1,5 @@
 PVector gameMode;
-PImage cake, hole, assembly, city, cursor, dark, rocket, machine, witch, bakery;
+PImage soccerMom, farmer, van, cake, hole, assembly, city, cursor, dark, rocket, machine, witch, bakery;
 int tilesX = 10;
 int tilesY = 10;
 int tileSize = 80;
@@ -24,6 +24,10 @@ void setup() {
   machine = loadImage("Space_Machine.png");
   witch = loadImage("Witchcraft.png");
   bakery = loadImage("Bakery.png");
+  farmer = loadImage("cartoon-people-farmer.png");
+  soccerMom = loadImage("soccer_mom.png");
+  van = loadImage("blue-van-hi.png");
+
   //x==0 is for start menu, x==1 is for the game, x==2 for pause menu
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(0, 0);
