@@ -3,10 +3,11 @@ class Tile {
   int size;
   int improvement;
   int owner;
-  boolean selected;
+  boolean selected, occupied;
 
   Tile(int loci, int locj, int owner_) {
     selected = false;
+    occupied = false;
     owner = owner_;
     improvement = 0;
     size = tileSize;
@@ -50,6 +51,16 @@ class Tile {
       if (button(width - 50, 250, 20, 20)) {
         selected = false;
       }
+    }
+    for (int i = 0; i < players.length; i++) {
+     for (int j = players[i].units.size(); j > 0; j--) {
+      Unit unit = players[i].units.get(j);
+      if (loc == unit.loc) {
+       occupied = true; 
+      } else {
+       occupied = false; 
+      }
+     } 
     }
   }
 }

@@ -1,5 +1,5 @@
 class Unit {
-  PVector loc;
+  PVector tileLoc, loc;
   String name;
   float atk, def, hp;
   int range, id, moved;
@@ -11,7 +11,8 @@ class Unit {
     selected = false;
     imgSize = tileSize/2;
     id = id_;
-    loc = new PVector(x, y);
+    tileLoc = new PVector(x, y);
+    loc = new PVector(x*tileSize, y*tileSize);
     if (id == 0) {
       name = "Soccer Mom";
       img = soccerMom;
@@ -47,7 +48,7 @@ class Unit {
   }
   void display() {
     imageMode(CORNER);
-    imageV(img, tileSize*loc.x, tileSize*loc.y, imgSize, imgSize);
+    imageV(img, loc.x, loc.y, imgSize, imgSize);
     if (selected) {
       colorMode(HSB, 255, 255, 255);
       fill(255);
@@ -58,7 +59,7 @@ class Unit {
   }
 
   void update() {
-    if (button(tileSize*loc.x, tileSize*loc.y, imgSize, imgSize)) {
+    if (button(loc.x, loc.y, imgSize, imgSize)) {
       selected = true;
     }
     if (selected) {

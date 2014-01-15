@@ -13,8 +13,6 @@ PauseMenu p;
 Settings s;
 StartMenu st;
 
-Unit test;
-
 void setup() {
   size(1000, 800);
   constructImages();
@@ -33,8 +31,6 @@ void setup() {
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
-
-  test = new Unit(0, 0, 0);
 }
 
 void draw() {
@@ -56,8 +52,6 @@ void draw() {
       }
     }
   }
-  test.update();
-  test.display();
   //pause screen
   if (gameMode.x == 2) {
     if (gameMode.y == 0) {
