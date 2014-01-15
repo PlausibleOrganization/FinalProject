@@ -7,27 +7,17 @@ Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
 boolean mouseReleased;
-float turn;
+int turn;
+int turnMod;
 PauseMenu p;
 Settings s;
 StartMenu st;
 
+Unit test;
+
 void setup() {
   size(1000, 800);
-  cake = loadImage("Cake.png");
-  hole = loadImage("Black_Hole.png");
-  assembly = loadImage("Assembly.png");
-  city = loadImage("City.png");
-  cursor = loadImage("Cursor.png");
-  dark = loadImage("Dark.png");
-  rocket = loadImage("Rocket.png");
-  machine = loadImage("Space_Machine.png");
-  witch = loadImage("Witchcraft.png");
-  bakery = loadImage("Bakery.png");
-  farmer = loadImage("cartoon-people-farmer.png");
-  soccerMom = loadImage("soccer_mom.png");
-  van = loadImage("blue-van-hi.png");
-
+  constructImages();
   //x==0 is for start menu, x==1 is for the game, x==2 for pause menu
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(0, 0);
@@ -43,9 +33,12 @@ void setup() {
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
+
+  test = new Unit(0, 0, 0);
 }
 
 void draw() {
+  turnMod = int(gameMode.y % players.length);
   background(0);
   if (gameMode.x == 0) {
     st.display();
@@ -53,36 +46,18 @@ void draw() {
   }
   if (gameMode.x == 1) {
     gameMode.y = turn;
-    //pause menu button
-    fillV(255);
-    rect(width-175, height-200, 150, 50);
-    fillV(0);
-    textSize(25);
-    text("Pause", width-100, height-167);
-    if (button(width-175, height-200, 150, 50)) {
-      gameMode = new PVector(2, 0);
-    }
-    //quit gamemode button
-    fillV(255);
-    rect(width-175, height-125, 150, 100);
-    fillV(0);
-    textSize(25);
-    text("Quit to\n main menu", width-102.5, height-85);
-    if (button(width-175, height-125, 150, 100)) {
-      gameMode = new PVector(0, 0);
-    }
-    for (int k = 0; k < players.length; k++) {
-      if (gameMode.y % players.length == k) {
-        players[k].display();
-        players[k].update();
-        for (int i = 0; i < tilesX; i++) {
-          for (int j = 0; j < tilesY; j++) {
-            tiles[i][j].display();
-          }
-        }
+    pauseAndQuit();
+    players[turnMod].display();
+    players[turnMod].update();
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        tiles[i][j].update();
+        tiles[i][j].display();
       }
     }
   }
+  test.update();
+  test.display();
   //pause screen
   if (gameMode.x == 2) {
     if (gameMode.y == 0) {
@@ -113,4 +88,3 @@ void mouseReleased() {
     players[i].allowEnd = true;
   }
 }
-

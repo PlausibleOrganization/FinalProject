@@ -5,12 +5,16 @@ class Unit {
   int range, id, moved;
   PImage img;
   boolean selected;
+  int imgSize;
 
   Unit(int id_, float x, float y) {
+    selected = false;
+    imgSize = tileSize/2;
     id = id_;
     loc = new PVector(x, y);
     if (id == 0) {
       name = "Soccer Mom";
+      img = soccerMom;
       hp = 100;
       atk = 60;
       def = 30;
@@ -18,6 +22,7 @@ class Unit {
     } 
     else if (id == 1) {
       name = "Soccer Mom Cavalry";
+      img = van;
       hp = 100;
       atk = 40;
       def = 30;
@@ -25,6 +30,7 @@ class Unit {
     }
     else if (id == 2) {
       name = "Farmer";
+      img = farmer;
       hp = 150;
       atk = 30;
       def = 50;
@@ -32,6 +38,7 @@ class Unit {
     }
     else if (id == 3) {
       name = "Rocket";
+      img = rocket;
       hp = 1;
       atk = 500;
       def = 1;
@@ -39,10 +46,26 @@ class Unit {
     }
   }
   void display() {
-    imageV(img, tileSize*(loc.x), tileSize*(loc.y), 20, 20);
+    imageMode(CORNER);
+    imageV(img, tileSize*loc.x, tileSize*loc.y, imgSize, imgSize);
+    if (selected) {
+      colorMode(HSB, 255, 255, 255);
+      fill(255);
+      rect(width - 175, 250, 150, 225);
+      fill(200);
+      rect(width - 50, 250, 20, 20);
+    }
   }
 
   void update() {
+    if (button(tileSize*loc.x, tileSize*loc.y, imgSize, imgSize)) {
+      selected = true;
+    }
+    if (selected) {
+      if (button(width - 50, 250, 20, 20)) {
+        selected = false;
+      }
+    }
   }
 
   void selectMenu() {
