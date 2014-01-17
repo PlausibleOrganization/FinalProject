@@ -3,7 +3,8 @@ class Tile {
   int size;
   int improvement;
   int owner;
-  boolean selected, occupied;
+  boolean selected, occupied, allowRun;
+  String name;
 
   Tile(int loci, int locj, int owner_) {
     selected = false;
@@ -18,9 +19,6 @@ class Tile {
     colorMode(HSB, 360, 100, 100);
     strokeWeight(1);
     stroke(0, 0, 0);
-    /* for (int i = 0; i < improvements.length; i++) {
-     display the image
-     } */
     if (owner == -1) {
       fillV(100, 100, 100);
     } 
@@ -36,14 +34,35 @@ class Tile {
       colorMode(HSB, 255, 255, 255);
       fill(255);
       rect(width - 175, 250, 150, 225);
+      textAlign(CORNER);
+      textSize(10);
+      fill(0);
+      text("Location: "+int(loc.x/tileSize)+" , "+int(loc.y/tileSize), width-160, 265);
+      text(name, width-160, 280);
       fill(200);
       rect(width - 50, 250, 20, 20);
     }
   }
-
+  
+  void newUnits() {
+    /*
+    display unit creation buttons
+    display costs
+    if (cakes > cost && button(loc) && allowRun) {
+      cakes -= cost;
+    }
+    */
+  }
   void update() {
+    if (improvement == 0) {
+      name = "Grassland";
+    } 
+    else if (improvement == 1) {
+      name = "City";
+    }
     if (button(loc.x, loc.y, tileSize, tileSize)) {
-      if (!button(loc.x, loc.y, tileSize/2, tileSize/2)) {
+      if (!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
+        deselector();
         selected = true;
       }
     }
@@ -53,14 +72,15 @@ class Tile {
       }
     }
     for (int i = 0; i < players.length; i++) {
-     for (int j = players[i].units.size(); j > 0; j--) {
-      Unit unit = players[i].units.get(j);
-      if (loc == unit.loc) {
-       occupied = true; 
-      } else {
-       occupied = false; 
+      for (int j = players[i].units.size(); j > 0; j--) {
+        Unit unit = players[i].units.get(j);
+        if (loc == unit.loc) {
+          occupied = true;
+        } 
+        else {
+          occupied = false;
+        }
       }
-     } 
     }
   }
 }

@@ -30,6 +30,10 @@ void setup() {
       tiles[i][j] = new Tile(i, j, -1);
     }
   }
+  tiles[0][0].owner = 0;
+  tiles[0][0].improvement = 1;
+  tiles[tilesX-1][tilesY-1].owner = 1;
+  tiles[tilesX-1][tilesY-1].improvement = 1;
   //set turn to Player 1;
   turn = 0;
   //construct menus
@@ -39,7 +43,7 @@ void setup() {
 }
 
 void draw() {
- //turnMod is what player's turn it is
+  //turnMod is what player's turn it is
   turnMod = int(gameMode.y % players.length);
   background(0);
   //starting screen
@@ -94,4 +98,10 @@ void mouseReleased() {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
   }
+  for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].allowRun = true;
+    }
+  }
 }
+

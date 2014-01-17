@@ -2,14 +2,15 @@ class Unit {
   PVector tileLoc, loc;
   String name;
   float atk, def, hp;
-  int range, id, moved;
+  int owner, id, range, moved;
   PImage img;
   boolean selected;
   int imgSize;
 
-  Unit(int id_, float x, float y) {
+  Unit(int owner_, int id_, float x, float y) {
     selected = false;
     imgSize = tileSize/2;
+    owner = owner_;
     id = id_;
     tileLoc = new PVector(x, y);
     loc = new PVector(x*tileSize, y*tileSize);
@@ -60,6 +61,7 @@ class Unit {
 
   void update() {
     if (button(loc.x, loc.y, imgSize, imgSize)) {
+      deselector();
       selected = true;
     }
     if (selected) {
