@@ -12,6 +12,7 @@ int turnMod;
 PauseMenu p;
 Settings s;
 StartMenu st;
+Instruct in;
 
 void setup() {
   size(1000, 800);
@@ -36,6 +37,7 @@ void setup() {
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
+  in = new Instruct();
 }
 
 void draw() {
@@ -46,6 +48,8 @@ void draw() {
   if (gameMode.x == 0) {
     st.display();
     st.update();
+    in.display();
+    in.update();
   }
   //game screens
   if (gameMode.x == 1) {
@@ -71,6 +75,9 @@ void draw() {
     else if (gameMode.y == 1) {
       s.display();
     }
+  }
+  if (gameMode.x == 3) {
+    in.instructions();
   }
 }
 
