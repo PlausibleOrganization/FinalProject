@@ -1,9 +1,8 @@
 class Tile {
-  PVector loc;
-  int size;
-  int improvement;
-  int owner;
+  PVector loc, tileLoc;
+  int size, improvement, owner;
   boolean selected, occupied;
+  String name;
 
   Tile(int loci, int locj, int owner_) {
     selected = false;
@@ -11,6 +10,7 @@ class Tile {
     owner = owner_;
     improvement = 0;
     size = tileSize;
+    tileLoc = new PVector(loci, locj);
     loc = new PVector(loci*size, locj*size);
   }
 
@@ -18,9 +18,6 @@ class Tile {
     colorMode(HSB, 360, 100, 100);
     strokeWeight(1);
     stroke(0, 0, 0);
-    /* for (int i = 0; i < improvements.length; i++) {
-     display the image
-     } */
     if (owner == -1) {
       fillV(100, 100, 100);
     } 
@@ -33,34 +30,45 @@ class Tile {
     rectMode(CORNER);
     rect(loc.x, loc.y, size, size);
     if (selected) {
+      textSize(10);
+      textAlign(CORNER);
       colorMode(HSB, 255, 255, 255);
       fill(255);
       rect(width - 175, 250, 150, 225);
+      fill(0);
+      text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 265);
+      text(name, width-170, 280);
       fill(200);
       rect(width - 50, 250, 20, 20);
     }
   }
 
   void update() {
-    if (button(loc.x, loc.y, tileSize, tileSize)) {
-      if (!button(loc.x, loc.y, tileSize/2, tileSize/2)) {
-        selected = true;
-      }
+    if (improvement == 0) {
+      name = "Grassland";
+    } 
+    else if (improvement == 1) {
+      name = "City";
     }
+    if (button(loc.x, loc.y, tileSize, tileSize) &&!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
+      deselector();
+      selected = true;
+    } 
     if (selected) {
       if (button(width - 50, 250, 20, 20)) {
         selected = false;
       }
     }
     for (int i = 0; i < players.length; i++) {
-     for (int j = players[i].units.size(); j > 0; j--) {
-      Unit unit = players[i].units.get(j);
-      if (loc == unit.loc) {
-       occupied = true; 
-      } else {
-       occupied = false; 
+      for (int j = players[i].units.size(); j > 0; j--) {
+        Unit unit = players[i].units.get(j);
+        if (loc == unit.loc) {
+          occupied = true;
+        } 
+        else {
+          occupied = false;
+        }
       }
-     } 
     }
   }
 }

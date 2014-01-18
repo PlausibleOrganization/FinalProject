@@ -49,3 +49,18 @@ void imageV(PImage img, float x, float y, float w, float h) {
   tint(color(hue(c_), saturation(c_), brightness(c_)*s.briScale));
   image(img, x, y, w, h);
 }
+
+int tileDist(Tile a, Tile b) {
+  PVector dist = new PVector();
+  dist.x = abs(a.tileLoc.x - b.tileLoc.x);
+  dist.y = abs(a.tileLoc.y - b.tileLoc.y);
+  return int(abs(dist.x + dist.y));
+}
+
+void deselector() {
+ for (int i = 0; i < tilesX; i++) {
+  for (int j = 0; j < tilesY; j++) {
+   tiles[i][j].selected = false; 
+  }
+ } 
+}
