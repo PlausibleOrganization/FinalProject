@@ -15,7 +15,7 @@ class StartMenu {
     rect(width/4, height/3, width/2, height/9);
     fill(240, 100, 100);
     textAlign(CENTER);
-    text("START GAME", width/2, height*7/18);
+    text("START GAME", width/2, height*7/18 + 7);
     textSize(100);
     fill(360);
     text("CAKE CLICKER", width/2, height/4);

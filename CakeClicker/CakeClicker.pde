@@ -7,110 +7,98 @@ Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
 boolean mouseReleased;
-float turn;
+int turn;
+int turnMod;
 PauseMenu p;
 Settings s;
 StartMenu st;
+Instruct in;
 
 void setup() {
   size(1000, 800);
-  cake = loadImage("Cake.png");
-  hole = loadImage("Black_Hole.png");
-  assembly = loadImage("Assembly.png");
-  city = loadImage("City.png");
-  cursor = loadImage("Cursor.png");
-  dark = loadImage("Dark.png");
-  rocket = loadImage("Rocket.png");
-  machine = loadImage("Space_Machine.png");
-  witch = loadImage("Witchcraft.png");
-  bakery = loadImage("Bakery.png");
-  farmer = loadImage("cartoon-people-farmer.png");
-  soccerMom = loadImage("soccer_mom.png");
-  van = loadImage("blue-van-hi.png");
-
+  //construct all PImages
+  constructImages();
   //x==0 is for start menu, x==1 is for the game, x==2 for pause menu
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(0, 0);
+  //construct players
   for (int i = 0; i < players.length; i++) {
     players[i] = new Player(i);
   }
+  //construct tiles
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
       tiles[i][j] = new Tile(i, j, -1);
     }
   }
+  //set turn to Player 1;
   turn = 0;
+  //construct menus
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
+  in = new Instruct();
 }
 
 void draw() {
+ //turnMod is what player's turn it is
+  turnMod = int(gameMode.y % players.length);
   background(0);
+  //starting screen
   if (gameMode.x == 0) {
     st.display();
     st.update();
+    in.display();
+    in.update();
   }
+  //game screens
   if (gameMode.x == 1) {
     gameMode.y = turn;
-    //pause menu button
-    fillV(255);
-    rect(width-175, height-200, 150, 50);
-    fillV(0);
-    textSize(25);
-    text("Pause", width-100, height-167);
-    if (button(width-175, height-200, 150, 50)) {
-      gameMode = new PVector(2, 0);
-    }
-    //quit gamemode button
-    fillV(255);
-    rect(width-175, height-125, 150, 100);
-    fillV(0);
-    textSize(25);
-    text("Quit to\n main menu", width-102.5, height-85);
-    if (button(width-175, height-125, 150, 100)) {
-      gameMode = new PVector(0, 0);
-    }
-    for (int k = 0; k < players.length; k++) {
-      if (gameMode.y % players.length == k) {
-        players[k].display();
-        players[k].update();
-        for (int i = 0; i < tilesX; i++) {
-          for (int j = 0; j < tilesY; j++) {
-            tiles[i][j].display();
-          }
-        }
+    pauseAndQuit();
+    players[turnMod].display();
+    players[turnMod].update();
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        tiles[i][j].update();
+        tiles[i][j].display();
       }
     }
   }
   //pause screen
   if (gameMode.x == 2) {
+    //main pause menu
     if (gameMode.y == 0) {
       p.resumeButton();
       p.settingsButton();
     } 
+    //settings menu
     else if (gameMode.y == 1) {
       s.display();
     }
   }
+  if (gameMode.x == 3) {
+    in.instructions();
+  }
 }
 
 void keyPressed() {
+  //modify brightness with + and -
   if (key == '+') {
     s.briScale+=.1;
   } 
   if (key == '_') {
     s.briScale-=.1;
   }
+  //pause game by pressing p
   if (key == 'p') {
     gameMode = new PVector(2, 0);
   }
 }
 
 void mouseReleased() {
+  //limtis cake clicks and turn ending to one mouse click per event
   for (int i = 0; i < players.length; i++) {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
   }
 }
-

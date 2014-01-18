@@ -3,8 +3,11 @@ class Tile {
   int size;
   int improvement;
   int owner;
+  boolean selected, occupied;
 
   Tile(int loci, int locj, int owner_) {
+    selected = false;
+    occupied = false;
     owner = owner_;
     improvement = 0;
     size = tileSize;
@@ -29,6 +32,36 @@ class Tile {
     }
     rectMode(CORNER);
     rect(loc.x, loc.y, size, size);
+    if (selected) {
+      colorMode(HSB, 255, 255, 255);
+      fill(255);
+      rect(width - 175, 250, 150, 225);
+      fill(200);
+      rect(width - 50, 250, 20, 20);
+    }
+  }
+
+  void update() {
+    if (button(loc.x, loc.y, tileSize, tileSize)) {
+      if (!button(loc.x, loc.y, tileSize/2, tileSize/2)) {
+        selected = true;
+      }
+    }
+    if (selected) {
+      if (button(width - 50, 250, 20, 20)) {
+        selected = false;
+      }
+    }
+    for (int i = 0; i < players.length; i++) {
+     for (int j = players[i].units.size(); j > 0; j--) {
+      Unit unit = players[i].units.get(j);
+      if (loc == unit.loc) {
+       occupied = true; 
+      } else {
+       occupied = false; 
+      }
+     } 
+    }
   }
 }
 

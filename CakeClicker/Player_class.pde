@@ -5,18 +5,15 @@ class Player {
   int id;
   boolean allowEnd;
   ArrayList<Unit> units = new ArrayList<Unit>();
-  Unit test;
 
   Player(int id_) {
     id = id_;
     cakes = 0;
     c = new Clicker();
     allowEnd = true;
-    test = new Unit(0, 0, 0);
   }
 
   void update() {
-    test.update();
     c.update();
     if (c.clicked) {
       cakes++;
@@ -30,7 +27,6 @@ class Player {
   }
 
   void display() {
-  test.display();
     c.display();
     if (id == 0) {
       fillV(0, 100, 100);
