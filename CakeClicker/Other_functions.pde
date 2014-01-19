@@ -8,7 +8,7 @@ boolean button(float x, float y, float w, float h) {
   }
 }
 
-//alternative to fill(), scales brightness by briScale
+//alternative to fillV(), scales brightness by briScale
 void fillV(float f1, float f2, float f3, float f4) {
   color c_ = color(f1, f2, f3, f4);
   colorMode(HSB, 360, 100, 100, 100);
@@ -50,6 +50,7 @@ void imageV(PImage img, float x, float y, float w, float h) {
   image(img, x, y, w, h);
 }
 
+<<<<<<< HEAD
 void deselector() {
   for (int i = 0; i < players.length; i++) {
     for (int j = players[i].units.size() - 1; j > 0; j--) {
@@ -64,3 +65,19 @@ void deselector() {
   }
 }
 
+=======
+int tileDist(Tile a, Tile b) {
+  PVector dist = new PVector();
+  dist.x = abs(a.tileLoc.x - b.tileLoc.x);
+  dist.y = abs(a.tileLoc.y - b.tileLoc.y);
+  return int(abs(dist.x + dist.y));
+}
+
+void deselector() {
+ for (int i = 0; i < tilesX; i++) {
+  for (int j = 0; j < tilesY; j++) {
+   tiles[i][j].selected = false; 
+  }
+ } 
+}
+>>>>>>> origin/Brian
