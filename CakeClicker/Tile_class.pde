@@ -1,6 +1,6 @@
 class Tile {
   PVector loc, tileLoc;
-  int size, improvement, owner;
+  int size, improvement, owner, level;
   boolean selected, occupied;
   String name;
 
@@ -46,9 +46,15 @@ class Tile {
   void update() {
     if (improvement == 0) {
       name = "Grassland";
+      level = 0;
     } 
-    else if (improvement == 1) {
-      name = "City";
+    else {
+      if (level == 0) {
+        level = 1;
+      }
+      if (improvement == 1) {
+        name = "City";
+      }
     }
     if (button(loc.x, loc.y, tileSize, tileSize) &&!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
       deselector();

@@ -33,6 +33,11 @@ void setup() {
   }
   //set turn to Player 1;
   turn = 0;
+  //starting cities
+  tiles[0][0].owner = 0;
+  tiles[0][0].improvement = 1;
+  tiles[tilesX-1][tilesY-1].owner = 1;
+  tiles[tilesX-1][tilesY-1].improvement = 1;
   //construct menus
   p = new PauseMenu();
   s = new Settings();
