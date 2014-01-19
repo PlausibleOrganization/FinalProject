@@ -1,4 +1,5 @@
 void pauseAndQuit() {
+  textAlign(CENTER);
   //pause menu button
   colorMode(HSB, 255, 255, 255);
   fillV(255);
