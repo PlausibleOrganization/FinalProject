@@ -36,8 +36,21 @@ class Tile {
       fill(255);
       rect(width - 175, 250, 150, 225);
       fill(0);
-      text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 265);
-      text(name, width-170, 280);
+      if (owner > -1) {
+        text("Owned by Player "+(owner+1), width-170, 265);
+      } 
+      else {
+        text("Unclaimed territory", width-170, 265);
+      }
+      text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 280);
+      text(name, width-170, 295);
+      if (level > 0) {
+        text("Level "+level, width-170, 310);
+      } 
+      else {
+        text("Undeveloped tile", width-170, 310);
+      }
+
       fill(200);
       rect(width - 50, 250, 20, 20);
     }
