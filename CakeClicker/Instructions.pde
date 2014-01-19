@@ -7,11 +7,11 @@ class Instruct {
     //shows rules tab    
     colorMode(HSB, 360, 100, 100);
     textSize(20);
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     strokeWeight(5);
     stroke(240, 100, 100);
     rect(width/4, height/2, width/2, height/9);
-    fill(240, 100, 100);
+    fillV(240, 100, 100);
     textAlign(CENTER);
     text("RULES & INSTRUCTIONS", width/2, height*4/7 - 6);
   }
@@ -24,11 +24,11 @@ class Instruct {
   }
   
   void instructions() {
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     rect(width/4, height*4/5, width/2, height/9);
-    fill(240, 100, 100);
+    fillV(240, 100, 100);
     text("RETURN TO START", width/2, height*6/7 + 7);
-    fill(0, 100, 100);
+    fillV(0, 100, 100);
     if (button(width/4, height*4/5, width/2, height/9)) {
       gameMode = new PVector(0, 0);
     }

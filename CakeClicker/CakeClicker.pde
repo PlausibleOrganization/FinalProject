@@ -46,7 +46,7 @@ void setup() {
 }
 
 void draw() {
- //turnMod is what player's turn it is
+  //turnMod is what player's turn it is
   turnMod = int(gameMode.y % players.length);
   background(0);
   //starting screen
@@ -106,4 +106,10 @@ void mouseReleased() {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
   }
+  for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].allowBuy = true;
+    }
+  }
 }
+

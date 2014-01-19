@@ -51,9 +51,9 @@ class Unit {
     imageV(img, loc.x, loc.y, imgSize, imgSize);
     if (selected) {
       colorMode(HSB, 255, 255, 255);
-      fill(255);
+      fillV(255);
       rect(width - 175, 250, 150, 225);
-      fill(200);
+      fillV(200);
       rect(width - 50, 250, 20, 20);
     }
   }
