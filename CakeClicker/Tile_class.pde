@@ -1,15 +1,7 @@
 class Tile {
-<<<<<<< HEAD
-  PVector loc;
-  int size;
-  int improvement;
-  int owner;
-  boolean selected, occupied, allowRun;
-=======
   PVector loc, tileLoc;
   int size, improvement, owner, level, unitsBought;
   boolean selected, occupied, allowBuy;
->>>>>>> origin/Brian
   String name;
 
   Tile(int loci, int locj, int owner_) {
@@ -39,29 +31,6 @@ class Tile {
     rectMode(CORNER);
     rect(loc.x, loc.y, size, size);
     if (selected) {
-<<<<<<< HEAD
-      colorMode(HSB, 255, 255, 255);
-      fill(255);
-      rect(width - 175, 250, 150, 225);
-      textAlign(CORNER);
-      textSize(10);
-      fill(0);
-      text("Location: "+int(loc.x/tileSize)+" , "+int(loc.y/tileSize), width-160, 265);
-      text(name, width-160, 280);
-      fill(200);
-      rect(width - 50, 250, 20, 20);
-    }
-  }
-  
-  void newUnits() {
-    /*
-    display unit creation buttons
-    display costs
-    if (cakes > cost && button(loc) && allowRun) {
-      cakes -= cost;
-    }
-    */
-=======
       tileMenu();
     }
   }
@@ -108,21 +77,10 @@ class Tile {
         text("You have already purchased a unit.", width-170, 325);
       }
     }
->>>>>>> origin/Brian
   }
   void update() {
     if (improvement == 0) {
       name = "Grassland";
-<<<<<<< HEAD
-    } 
-    else if (improvement == 1) {
-      name = "City";
-    }
-    if (button(loc.x, loc.y, tileSize, tileSize)) {
-      if (!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
-        deselector();
-        selected = true;
-=======
       level = 0;
     } 
     else {
@@ -131,7 +89,6 @@ class Tile {
       }
       if (improvement == 1) {
         name = "City";
->>>>>>> origin/Brian
       }
     }
     if (button(loc.x, loc.y, tileSize, tileSize) &&!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
@@ -144,11 +101,7 @@ class Tile {
       }
     }
     for (int i = 0; i < players.length; i++) {
-<<<<<<< HEAD
-      for (int j = players[i].units.size(); j > 0; j--) {
-=======
       for (int j = players[i].units.size() - 1; j > 0; j--) {
->>>>>>> origin/Brian
         Unit unit = players[i].units.get(j);
         if (loc == unit.loc) {
           occupied = true;

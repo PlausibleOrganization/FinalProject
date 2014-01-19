@@ -112,11 +112,7 @@ void mouseReleased() {
   }
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
-<<<<<<< HEAD
-      tiles[i][j].allowRun = true;
-=======
       tiles[i][j].allowBuy = true;
->>>>>>> origin/Brian
     }
   }
 }

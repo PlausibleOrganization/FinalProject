@@ -50,22 +50,6 @@ void imageV(PImage img, float x, float y, float w, float h) {
   image(img, x, y, w, h);
 }
 
-<<<<<<< HEAD
-void deselector() {
-  for (int i = 0; i < players.length; i++) {
-    for (int j = players[i].units.size() - 1; j > 0; j--) {
-      Unit unit = players[i].units.get(j);
-      unit.selected = false;
-    }
-  }
-  for (int i = 0; i < tilesX; i++) {
-    for (int j = 0; j < tilesY; j++) {
-      tiles[i][j].selected = false;
-    }
-  }
-}
-
-=======
 int tileDist(Tile a, Tile b) {
   PVector dist = new PVector();
   dist.x = abs(a.tileLoc.x - b.tileLoc.x);
@@ -80,4 +64,4 @@ void deselector() {
   }
  } 
 }
->>>>>>> origin/Brian
+
