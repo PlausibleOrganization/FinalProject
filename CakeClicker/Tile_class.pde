@@ -78,6 +78,7 @@ class Tile {
             players[turnMod].cakes-=unitData[i].cost;
             players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
             unitsBought++;
+            occupied = true;
           }
         }
       } 
@@ -109,17 +110,15 @@ class Tile {
         selected = false;
       }
     }
-    for (int i = 0; i < players.length; i++) {
-      for (int j = players[i].units.size() - 1; j > -1; j--) {
-        Unit unit = players[i].units.get(j);
-        if (loc == unit.loc) {
-          occupied = true;
-        } 
-        else {
-          occupied = false;
-        }
-      }
-    }
+    //    for (int i = 0; i < players.length; i++) {
+    //      for (int j = players[i].units.size() - 1; j > -1; j--) {
+    //        Unit unit = players[i].units.get(j);
+    //        if (loc == unit.loc) {
+    //          occupied = true;
+    //        } 
+    //        else {
+    //          occupied = false;
+    //        }
+    //      }
   }
 }
-
