@@ -1,5 +1,5 @@
 PVector gameMode;
-PImage soccerMom, farmer, van, cake, hole, assembly, city, cursor, dark, rocket, machine, witch, bakery;
+PImage soccerMom, farmer, van, cake, hole, assembly, city, grasslands, cursor, dark, rocket, machine, witch, bakery;
 int tilesX = 10;
 int tilesY = 10;
 int tileSize = 80;
