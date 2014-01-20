@@ -9,15 +9,15 @@ class StartMenu {
     //draws reset button
     colorMode(HSB, 360, 100, 100);
     textSize(20);
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     strokeWeight(5);
     stroke(240, 100, 100);
     rect(width/4, height/3, width/2, height/9);
-    fill(240, 100, 100);
+    fillV(240, 100, 100);
     textAlign(CENTER);
-    text("START GAME", width/2, height*7/18);
+    text("START GAME", width/2, height*7/18 + 7);
     textSize(100);
-    fill(360);
+    fillV(360);
     text("CAKE CLICKER", width/2, height/4);
   }
   void update() {

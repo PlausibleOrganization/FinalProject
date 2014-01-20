@@ -12,11 +12,11 @@ class PauseMenu {
     textSize(20);
     colorMode(HSB, 360, 100, 100);
     //rectangle/text
-    fill(0, 100, 100);
+    fillV(0, 100, 100);
     strokeWeight(5);
     stroke(120, 100, 100);
     rect(width/4, height/9, width/2, height/9);
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     text("Resume", width/2, height*3/18);
     //if mouse clicked with rectangle, resume game
     if (button(width/4, height/9, width/2, height/9)) {
@@ -29,11 +29,11 @@ class PauseMenu {
     textSize(20);
     colorMode(HSB, 360, 100, 100);
     //rectangle/text
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     strokeWeight(5);
     stroke(240, 100, 100);
     rect(width/4, height/3, width/2, height/9);
-    fill(0, 100, 100);
+    fillV(0, 100, 100);
     text("Settings", width/2, height*7/18);
     //if mouse clicked with rectangle, open shop
     if (button(width/4, height/3, width/2, height/9)) {
@@ -49,11 +49,11 @@ class Settings {
   }
   void display() {
     //return to menu button
-    fill(120, 100, 100);
+    fillV(120, 100, 100);
     strokeWeight(5);
     stroke(240, 100, 100);
     rect(width/4, height*7/9, width/2, height/9);
-    fill(0, 100, 100);
+    fillV(0, 100, 100);
     text("Back to menu", width/2, height*15/18);
     //if rectangle is clicked, return to menu
     if (button(width/4, height*7/9, width/2, height/9)) {

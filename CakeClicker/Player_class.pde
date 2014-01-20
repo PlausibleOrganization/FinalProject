@@ -53,11 +53,16 @@ class Player {
     fillV(0);
     textSize(25);
     text("End turn", width-100, height-255);
-    if (button(width-175, height-300, 150, 75) && allowEnd) {  
-      turn++;
+    if (button(width-175, height-300, 150, 75) && allowEnd) {
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          tiles[i][j].unitsBought = 0;
+        }
+      }
       for (int i = 0; i < players.length; i++) {
         players[i].allowEnd = false;
       }
+      turn++;
     }
   }
 }

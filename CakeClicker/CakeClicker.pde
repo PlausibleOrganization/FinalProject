@@ -12,6 +12,7 @@ int turnMod;
 PauseMenu p;
 Settings s;
 StartMenu st;
+Instruct in;
 
 void setup() {
   size(1000, 800);
@@ -36,10 +37,16 @@ void setup() {
   tiles[tilesX-1][tilesY-1].improvement = 1;
   //set turn to Player 1;
   turn = 0;
+  //starting cities
+  tiles[0][0].owner = 0;
+  tiles[0][0].improvement = 1;
+  tiles[tilesX-1][tilesY-1].owner = 1;
+  tiles[tilesX-1][tilesY-1].improvement = 1;
   //construct menus
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
+  in = new Instruct();
 }
 
 void draw() {
@@ -50,6 +57,8 @@ void draw() {
   if (gameMode.x == 0) {
     st.display();
     st.update();
+    in.display();
+    in.update();
   }
   //game screens
   if (gameMode.x == 1) {
@@ -76,6 +85,9 @@ void draw() {
       s.display();
     }
   }
+  if (gameMode.x == 3) {
+    in.instructions();
+  }
 }
 
 void keyPressed() {
@@ -100,7 +112,7 @@ void mouseReleased() {
   }
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
-      tiles[i][j].allowRun = true;
+      tiles[i][j].allowBuy = true;
     }
   }
 }
