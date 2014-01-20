@@ -6,6 +6,7 @@ int tileSize = 80;
 Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
+UnitData[] unitData = new UnitData[4];
 boolean mouseReleased;
 int turn;
 int turnMod;
@@ -30,6 +31,10 @@ void setup() {
     for (int j = 0; j < tilesY; j++) {
       tiles[i][j] = new Tile(i, j, -1);
     }
+  }
+  //construct unitData
+  for (int i = 0; i < unitData.length; i++) {
+    unitData[i] = new UnitData(i);
   }
   tiles[0][0].owner = 0;
   tiles[0][0].improvement = 1;
@@ -64,14 +69,14 @@ void draw() {
   if (gameMode.x == 1) {
     gameMode.y = turn;
     pauseAndQuit();
-    players[turnMod].display();
-    players[turnMod].update();
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {
         tiles[i][j].update();
         tiles[i][j].display();
       }
     }
+    players[turnMod].display();
+    players[turnMod].update();
   }
   //pause screen
   if (gameMode.x == 2) {
@@ -88,6 +93,8 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
+  
+  println(tiles[0][0].occupied);
 }
 
 void keyPressed() {
@@ -101,6 +108,10 @@ void keyPressed() {
   //pause game by pressing p
   if (key == 'p') {
     gameMode = new PVector(2, 0);
+  }
+  //soley for debugging
+  if (key == 'q') {
+    players[0].cakes += 50;
   }
 }
 

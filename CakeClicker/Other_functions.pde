@@ -58,10 +58,15 @@ int tileDist(Tile a, Tile b) {
 }
 
 void deselector() {
- for (int i = 0; i < tilesX; i++) {
-  for (int j = 0; j < tilesY; j++) {
-   tiles[i][j].selected = false; 
+  for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].selected = false;
+    }
+  } 
+  for (int i = 0; i < players.length; i++) {
+    for (int j = players[i].units.size() - 1; j > -1; j--) {
+      players[i].units.get(j).selected = false;
+    }
   }
- } 
 }
 

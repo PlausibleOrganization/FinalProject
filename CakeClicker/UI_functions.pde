@@ -26,7 +26,7 @@ void constructImages() {
   hole = loadImage("Black_Hole.png");
   assembly = loadImage("Assembly.png");
   city = loadImage("City.png");
-  grasslands = loadImage("grasslands.png");
+  grasslands = loadImage("grasslands2.png");
   cursor = loadImage("Cursor.png");
   dark = loadImage("Dark.png");
   rocket = loadImage("Rocket.png");

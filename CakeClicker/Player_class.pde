@@ -19,9 +19,8 @@ class Player {
       cakes++;
       // mouseReleased = false;
     }
-    for (int i = units.size() - 1; i > 0; i++) {
+    for (int i = units.size() - 1; i > -1; i--) {
       Unit unit = units.get(i);
-      unit.display();
       unit.update();
     }
   }
@@ -63,6 +62,10 @@ class Player {
         players[i].allowEnd = false;
       }
       turn++;
+    }
+    for (int i = units.size() - 1; i > -1; i--) {
+      Unit unit = units.get(i);
+      unit.display();
     }
   }
 }

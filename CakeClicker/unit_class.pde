@@ -78,3 +78,38 @@ class Unit {
   }
 }
 
+class UnitData {
+  String name;
+  int id, cost;
+  PImage img;
+  PVector menuLoc;
+
+  UnitData(int id_) {
+    id = id_;
+    if (id == 0) {
+      name = "Soccer Mom";
+      img = soccerMom;
+      cost = 50;
+      menuLoc = new PVector(width-170, 340);
+    } 
+    else if (id == 1) {
+      name = "Soccer Mom Cavalry";
+      img = van;
+      cost = 150;
+      menuLoc = new PVector(width-120, 340);
+    }
+    else if (id == 2) {
+      name = "Farmer";
+      img = farmer;
+      cost = 500;
+      menuLoc = new PVector(width-170, 390);
+    }
+    else if (id == 3) {
+      name = "Rocket";
+      img = rocket;
+      cost = 40000;
+      menuLoc = new PVector(width-120, 390);
+    }
+  }
+}
+
