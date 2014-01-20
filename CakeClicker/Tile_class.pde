@@ -19,6 +19,7 @@ class Tile {
     colorMode(HSB, 360, 100, 100);
     strokeWeight(1);
     stroke(0, 0, 0);
+    imageV(city, loc.x, loc.y, tileSize, tileSize);
     if (owner == -1) {
       fillV(100, 100, 100);
     } 
@@ -69,13 +70,13 @@ class Tile {
         text(50, width-160, 385);
         if (button(width-170, 340, 30, 30) && players[turnMod].cakes >= 50 && !occupied) {          
           players[turnMod].cakes-=50;
-          players[turnMod].units.add(new Unit(0, tileLoc.x, tileLoc.y));
+          players[turnMod].units.add(new Unit(turnMod, 0, int(tileLoc.x), int(tileLoc.y)));
         }
       } 
       else {
         textSize(25);
         text("You have already purchased a unit.", width-170, 325);
-      }
+      } 
     }
   }
   void update() {
