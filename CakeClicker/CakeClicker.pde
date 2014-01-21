@@ -94,7 +94,7 @@ void draw() {
     in.instructions();
   }
   
-  println(tiles[0][0].occupied);
+  println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
 }
 
 void keyPressed() {

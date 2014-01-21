@@ -1,6 +1,6 @@
 class Tile {
-  PVector loc, tileLoc;
-  int size, improvement, owner, level, unitsBought;
+  PVector loc, tileLoc, nearestCity;
+  int size, improvement, owner, level, unitsBought, cityDist; 
   boolean selected, occupied, allowBuy;
   String name;
 
@@ -13,6 +13,7 @@ class Tile {
     size = tileSize;
     tileLoc = new PVector(loci, locj);
     loc = new PVector(loci*size, locj*size);
+    cityDist = tilesX + tilesY;
   }
 
   void display() {
@@ -110,15 +111,23 @@ class Tile {
         selected = false;
       }
     }
-    //    for (int i = 0; i < players.length; i++) {
-    //      for (int j = players[i].units.size() - 1; j > -1; j--) {
-    //        Unit unit = players[i].units.get(j);
-    //        if (loc == unit.loc) {
-    //          occupied = true;
-    //        } 
-    //        else {
-    //          occupied = false;
-    //        }
-    //      }
+    //buggy territory control system
+    if (improvement != 1) {
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          if (tileLoc.x != i && tileLoc.y != j) {
+            if (tiles[i][j].improvement == 1) {
+              if ((tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) < cityDist) && cityDist > level) {
+                println("test");
+                cityDist = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]);
+                nearestCity = new PVector(i, j);
+                owner = tiles[i][j].owner;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
+
