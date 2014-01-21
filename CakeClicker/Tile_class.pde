@@ -4,11 +4,11 @@ class Tile {
   boolean selected, occupied, allowBuy;
   String name;
 
-  Tile(int loci, int locj, int owner_) {
+  Tile(int loci, int locj) {
     selected = false;
     occupied = false;
     allowBuy = false;
-    owner = owner_;
+    owner = -1;
     improvement = 0;
     size = tileSize;
     tileLoc = new PVector(loci, locj);
@@ -17,31 +17,40 @@ class Tile {
   }
 
   void display() {
-    colorMode(HSB, 360, 100, 100);
-    strokeWeight(1);
-    stroke(0, 0, 0);
-    if (improvement == 0) {
-      imageV(grasslands, loc.x, loc.y, tileSize, tileSize);
-    } 
-    else if (improvement == 1) { 
-      imageV(city, loc.x, loc.y, tileSize, tileSize);
-    }
+        colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
-      fillV(100, 100, 100);
+      tint(0,0,100*s.briScale,100);
     } 
     else if (owner == 0) {
-      fillV(0, 100, 100, 50);
+      tint(0, 25, 100*s.briScale, 50);
     } 
     else if (owner == 1) {
-      fillV(240, 100, 100, 50);
+      tint(240, 25, 100*s.briScale, 50);
+    }
+    if (improvement == 0) {
+      image(grasslands, loc.x, loc.y, tileSize, tileSize);
+    } 
+    else if (improvement == 1) { 
+      image(city, loc.x, loc.y, tileSize, tileSize);
     }
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {
-      tileMenu();
+      if (improvement == 1) {
+        tileMenu();
+      }
     }
   }
-
+  void setCity() {
+    improvement = 1;
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) {
+          tiles[i][j].owner = owner;
+        }
+      }
+    }
+  }
   void tileMenu() {
     colorMode(HSB, 255, 255, 255);
     fillV(255);
@@ -66,26 +75,29 @@ class Tile {
       text("Undeveloped tile", width-170, 310);
     }
     if (owner == turnMod) {
-      if (unitsBought < 1) {
-        textSize(15);
-        text("Purchase a unit:", width-170, 330);
-        imageMode(CORNER);
-        for (int i = 0; i <unitData.length; i++) {
-          rect(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
-          imageV(unitData[i].img, unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
-          textSize(10);
-          text(unitData[i].cost, unitData[i].menuLoc.x + 10, unitData[i].menuLoc.y + 45);
-          if (button(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30) && players[turnMod].cakes >= unitData[i].cost && !occupied) {          
-            players[turnMod].cakes-=unitData[i].cost;
-            players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
-            unitsBought++;
-            occupied = true;
+      if (improvement == 1) {
+        if (unitsBought < 1) {
+          textSize(15);
+          text("Purchase a unit:", width-170, 330);
+          imageMode(CORNER);
+          for (int i = 0; i <unitData.length; i++) {
+            rect(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
+            imageV(unitData[i].img, unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
+            textSize(10);
+            text(unitData[i].cost, unitData[i].menuLoc.x + 10, unitData[i].menuLoc.y + 45);
+            if (button(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30) && players[turnMod].cakes >= unitData[i].cost && !occupied) {          
+              players[turnMod].cakes-=unitData[i].cost;
+              players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
+              unitsBought++;
+              occupied = true;
+            }
           }
         }
-      } 
-      else {
-        textSize(25);
-        text("You have \nalready \npurchased \na unit.", width-170, 335);
+
+        else {
+          textSize(25);
+          text("You have \nalready \npurchased \na unit.", width-170, 335);
+        }
       }
     }
   }
@@ -109,22 +121,6 @@ class Tile {
     if (selected) {
       if (button(width - 50, 250, 20, 20)) {
         selected = false;
-      }
-    }
-    //buggy territory control system
-    if (improvement != 1) {
-      for (int i = 0; i < tilesX; i++) {
-        for (int j = 0; j < tilesY; j++) {
-          if (tileLoc.x != i && tileLoc.y != j) {
-            if (tiles[i][j].improvement == 1) {
-              if ((tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) < cityDist) && tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) >= level) {
-                cityDist = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]);
-                nearestCity = new PVector(i, j);
-                owner = tiles[i][j].owner;
-              }
-            }
-          }
-        }
       }
     }
   }
