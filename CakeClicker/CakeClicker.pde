@@ -36,10 +36,6 @@ void setup() {
   for (int i = 0; i < unitData.length; i++) {
     unitData[i] = new UnitData(i);
   }
-  tiles[0][0].owner = 0;
-  tiles[0][0].improvement = 1;
-  tiles[tilesX-1][tilesY-1].owner = 1;
-  tiles[tilesX-1][tilesY-1].improvement = 1;
   //set turn to Player 1;
   turn = 0;
   //starting cities
@@ -93,8 +89,9 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
-  
+
   println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
+  println("cityDist: "+tileDist(tiles[0][0], tiles[1][0]));
 }
 
 void keyPressed() {

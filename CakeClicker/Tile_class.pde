@@ -117,8 +117,7 @@ class Tile {
         for (int j = 0; j < tilesY; j++) {
           if (tileLoc.x != i && tileLoc.y != j) {
             if (tiles[i][j].improvement == 1) {
-              if ((tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) < cityDist) && cityDist > level) {
-                println("test");
+              if ((tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) < cityDist) && tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) >= level) {
                 cityDist = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]);
                 nearestCity = new PVector(i, j);
                 owner = tiles[i][j].owner;
