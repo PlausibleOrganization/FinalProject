@@ -54,7 +54,8 @@ int tileDist(Tile a, Tile b) {
   PVector dist = new PVector();
   dist.x = abs(a.tileLoc.x - b.tileLoc.x);
   dist.y = abs(a.tileLoc.y - b.tileLoc.y);
-  return int(abs(dist.x + dist.y));
+  int d = int(abs(dist.x + dist.y));
+  return d;
 }
 
 void deselector() {

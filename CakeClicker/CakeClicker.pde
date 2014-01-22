@@ -14,6 +14,7 @@ PauseMenu p;
 Settings s;
 StartMenu st;
 Instruct in;
+timer ti;
 
 void setup() {
   size(1000, 800);
@@ -29,29 +30,26 @@ void setup() {
   //construct tiles
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
-      tiles[i][j] = new Tile(i, j, -1);
+      tiles[i][j] = new Tile(i, j);
     }
   }
   //construct unitData
   for (int i = 0; i < unitData.length; i++) {
     unitData[i] = new UnitData(i);
   }
-  tiles[0][0].owner = 0;
-  tiles[0][0].improvement = 1;
-  tiles[tilesX-1][tilesY-1].owner = 1;
-  tiles[tilesX-1][tilesY-1].improvement = 1;
   //set turn to Player 1;
   turn = 0;
   //starting cities
   tiles[0][0].owner = 0;
-  tiles[0][0].improvement = 1;
+  tiles[0][0].setCity();
   tiles[tilesX-1][tilesY-1].owner = 1;
-  tiles[tilesX-1][tilesY-1].improvement = 1;
+  tiles[tilesX-1][tilesY-1].setCity();
   //construct menus
   p = new PauseMenu();
   s = new Settings();
   st = new StartMenu();
   in = new Instruct();
+  ti = new timer(60000);
 }
 
 void draw() {
@@ -68,6 +66,7 @@ void draw() {
   //game screens
   if (gameMode.x == 1) {
     gameMode.y = turn;
+    ti.time();
     pauseAndQuit();
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {
@@ -93,8 +92,7 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
-  
-  println(tiles[0][0].occupied);
+  //println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
 }
 
 void keyPressed() {
@@ -112,6 +110,9 @@ void keyPressed() {
   //soley for debugging
   if (key == 'q') {
     players[0].cakes += 50;
+  }
+  if (key == 'z') {
+    players[1].cakes += 50;
   }
 }
 
