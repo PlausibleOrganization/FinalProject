@@ -48,6 +48,9 @@ class Player {
     text("Cakes: "+int(cakes), width-100, 100);
     textSize(10);
     text("Cakes per second: "+int(cps), width-100, 200);
+    //turn time left
+    textSize(25);
+    text(ti.viewTime(), width-100, 240);
     //end turn button
     rectMode(CORNER);
     fillV(255);

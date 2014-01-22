@@ -96,6 +96,7 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
+  println(ti.viewTime());
 }
 
 void keyPressed() {
