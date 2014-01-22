@@ -32,7 +32,7 @@ class Instruct {
     if (button(width/4, height*4/5, width/2, height/9)) {
       gameMode = new PVector(0, 0);
     }
-    text("Cake clicker was inspired by the amazing games of Civilization and Cookie Clicker. \n In the campaign mode, you are trying to take over the world with your armies. \n The cakes in the upper-right corner are your currency, and buildings will automatically \nincrease how many you recieve a second. Attack the enemy player and rule teh world. \n In the free play mode, try to get as many cookies as possible.", width/2, height/9);
+    text("Cake clicker was inspired by the amazing games of Civilization and Cookie Clicker. \n In the campaign mode, you are trying to take over the world with your armies. \n The cakes in the upper-right corner are your currency, and buildings will automatically \nincrease how many you recieve a second. Attack the enemy player and rule the world. \n In the free play mode, try to get as many cookies as possible.", width/2, height/9);
   }
 }
 
