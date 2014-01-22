@@ -61,6 +61,7 @@ class Unit {
       unitMenu();
     }
   }
+
   void unitMenu() {
     mouseTile = new PVector(mouseX/tileSize, mouseY/tileSize);
     rectMode(CORNER);
@@ -74,52 +75,58 @@ class Unit {
     textAlign(CORNER);
     //should be formatted into one text function
     text("Owned by Player "+(owner+1)+"\nLocation: "+int(tileLoc.x)+" , "+int(tileLoc.y)+"\n"+name+"\nLevel "+level+"\nMovement: "+moved+"/"+range+"\nHealth: "+hp+"/"+maxhp+"\nATK: "+atk+" DEF:"+def, width-170, 265);
-    if (moved == range) {
-      allowMove = false;
+    if (owner == turnMod) {
+      if (moved == range) {
+        allowMove = false;
+        textAlign(CORNER);
+        textSize(15);
+        text("YOU HAVE USED \nTHIS UNIT'S MOVES", width-170, 390);
+      } 
+      else {
+        fillV(100);
+        rect(width-170, 370, 140, 36);
+        textAlign(CENTER);
+        textSize(25);
+        fillV(0);
+        text("MOVE", width-100, 395);
+      }
+      if (button(width-170, 370, 140, 36) && allowMove) {
+        move = !move;
+        allowMove = false;
+      }
+      if (move) {
+        for (int i = 0; i < tilesX; i++) {
+          for (int j = 0; j < tilesY; j++) {
+            if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
+              fillV(100);
+              rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
+            }
+          }
+        }
+        imageMode(CORNER);
+        imageV(img, loc.x, loc.y, imgSize, imgSize);
+        if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
+          Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
+          Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
+          int tDist = tileDist(tile1, tile2);
+          println(mouseTile.x);
+          if (tDist + moved <= range) {
+            if (keyPressed && key == 'm') {
+              println(true);
+              moved += tDist;
+              tile1.occupied = false;
+              tile2.occupied = true;
+              tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+              loc = new PVector(tile2.loc.x, tile2.loc.y);
+              move = false;
+            }
+          }
+        }
+      }
+    } else {
+      textSize(20);
       textAlign(CORNER);
-      textSize(15);
-      text("YOU HAVE USED \nTHIS UNIT'S MOVES", width-170, 390);
-    } 
-    else {
-      fillV(100);
-      rect(width-170, 370, 140, 36);
-      textAlign(CENTER);
-      textSize(25);
-      fillV(0);
-      text("MOVE", width-100, 395);
-    }
-    if (button(width-170, 370, 140, 36) && allowMove) {
-      move = !move;
-      allowMove = false;
-    }
-    if (move) {
-      for (int i = 0; i < tilesX; i++) {
-        for (int j = 0; j < tilesY; j++) {
-          if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
-            fillV(100);
-            rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
-          }
-        }
-      }
-      imageMode(CORNER);
-      imageV(img, loc.x, loc.y, imgSize, imgSize);
-      if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
-        Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
-        Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
-        int tDist = tileDist(tile1, tile2);
-        println(mouseTile.x);
-        if (tDist + moved <= range) {
-          if (keyPressed && key == 'm') {
-            println(true);
-            moved += tDist;
-            tile1.occupied = false;
-            tile2.occupied = true;
-            tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
-            loc = new PVector(tile2.loc.x, tile2.loc.y);
-            move = false;
-          }
-        }
-      }
+     text("THiS IS NOT \nYOUR UNIT", width-170, 390); 
     }
   }
   void update() {

@@ -67,12 +67,11 @@ class Player {
       turn++;
     }
   }
-}
 
-void displayUnits() {
-  for (int i = units.size() - 1; i > -1; i--) {
-    Unit unit = units.get(i);
-    unit.display();
+  void displayUnits() {
+    for (int i = units.size() - 1; i > -1; i--) {
+      Unit unit = units.get(i);
+      unit.display();
+    }
   }
 }
-
