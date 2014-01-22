@@ -1,4 +1,6 @@
 void pauseAndQuit() {
+  strokeWeight(1);
+  stroke(0);
   textAlign(CENTER);
   //pause menu button
   colorMode(HSB, 255, 255, 255);
@@ -26,6 +28,7 @@ void constructImages() {
   hole = loadImage("Black_Hole.png");
   assembly = loadImage("Assembly.png");
   city = loadImage("City.png");
+  grasslands = loadImage("grasslands2.png");
   cursor = loadImage("Cursor.png");
   dark = loadImage("Dark.png");
   rocket = loadImage("Rocket.png");

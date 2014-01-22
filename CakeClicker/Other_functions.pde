@@ -54,14 +54,20 @@ int tileDist(Tile a, Tile b) {
   PVector dist = new PVector();
   dist.x = abs(a.tileLoc.x - b.tileLoc.x);
   dist.y = abs(a.tileLoc.y - b.tileLoc.y);
-  return int(abs(dist.x + dist.y));
+  int d = int(abs(dist.x + dist.y));
+  return d;
 }
 
 void deselector() {
- for (int i = 0; i < tilesX; i++) {
-  for (int j = 0; j < tilesY; j++) {
-   tiles[i][j].selected = false; 
+  for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].selected = false;
+    }
+  } 
+  for (int i = 0; i < players.length; i++) {
+    for (int j = players[i].units.size() - 1; j > -1; j--) {
+      players[i].units.get(j).selected = false;
+    }
   }
- } 
 }
 
