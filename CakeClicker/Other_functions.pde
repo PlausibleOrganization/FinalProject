@@ -8,6 +8,15 @@ boolean button(float x, float y, float w, float h) {
   }
 }
 
+boolean button2(float x, float y, float w, float h) {
+  if (mouseX > x && mouseX < x + w&& mouseY > y && mouseY < y + h) {
+    return true;
+  } 
+  else {
+    return false;
+  }
+}
+
 //alternative to fillV(), scales brightness by briScale
 void fillV(float f1, float f2, float f3, float f4) {
   color c_ = color(f1, f2, f3, f4);
@@ -57,6 +66,11 @@ int tileDist(Tile a, Tile b) {
   int d = int(abs(dist.x + dist.y));
   return d;
 }
+
+//PVector mouseTile() {
+//  PVector p = new PVector(int(mouseX)/tileSize, int(mouseY)/tileSize); 
+//  return p;
+//}
 
 void deselector() {
   for (int i = 0; i < tilesX; i++) {

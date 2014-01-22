@@ -76,6 +76,10 @@ void draw() {
     }
     players[turnMod].display();
     players[turnMod].update();
+    for (int i = 0; i < players.length; i++) {
+      players[i].updateUnits();
+      players[i].displayUnits();
+    }
   }
   //pause screen
   if (gameMode.x == 2) {
@@ -92,7 +96,6 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
-  //println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
 }
 
 void keyPressed() {
@@ -121,6 +124,9 @@ void mouseReleased() {
   for (int i = 0; i < players.length; i++) {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
+    for (int j = players[i].units.size()-1; j > -1; j--) {
+      players[i].units.get(i).allowMove = true;
+    }
   }
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
