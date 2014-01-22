@@ -1,5 +1,5 @@
 class Unit {
-  PVector tileLoc, loc;
+  PVector tileLoc, loc, mouseTile;
   String name;
   int atk, def, hp, maxhp;
   int range, moved;
@@ -62,6 +62,7 @@ class Unit {
     }
   }
   void unitMenu() {
+    mouseTile = new PVector(mouseX/tileSize, mouseY/tileSize);
     rectMode(CORNER);
     colorMode(RGB, 255, 255, 255);
     fillV(255);
@@ -101,23 +102,24 @@ class Unit {
       imageV(img, loc.x, loc.y, imgSize, imgSize);
       if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
         Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
-        Tile tile2 = tiles[int(mouseTile().x)][int(mouseTile().y)];
+        Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
         int tDist = tileDist(tile1, tile2);
-        println(tDist + moved);
-        println(tile2.loc+"     "+(tDist <= range - moved));
-        if (mousePressed) {
+        println(mouseTile.x);
+//        println(tDist + moved);
+//        println(tile2.loc+"     "+(tDist <= range - moved));
           if (tDist + moved <= range) {
+            println(true);
             moved += tDist;
             tile1.occupied = false;
             tile2.occupied = true;
             tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
             loc = new PVector(tile2.loc.x, tile2.loc.y);
             move = false;
+            println(mouseX);
           }
         }
       }
-    }
-    println("Loc: "+loc);
+//    println("Loc: "+loc);
   }
   void update() {
     if (button(loc.x, loc.y, imgSize, imgSize)) {

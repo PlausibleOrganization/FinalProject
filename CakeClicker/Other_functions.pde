@@ -67,10 +67,10 @@ int tileDist(Tile a, Tile b) {
   return d;
 }
 
-PVector mouseTile() {
-  PVector p = new PVector(int(mouseX)/tileSize, int(mouseY)/tileSize); 
-  return p;
-}
+//PVector mouseTile() {
+//  PVector p = new PVector(int(mouseX)/tileSize, int(mouseY)/tileSize); 
+//  return p;
+//}
 
 void deselector() {
   for (int i = 0; i < tilesX; i++) {
