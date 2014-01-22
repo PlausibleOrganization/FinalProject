@@ -36,9 +36,7 @@ class Tile {
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {
-      if (improvement == 1) {
         tileMenu();
-      }
     }
   }
   void setCity() {

@@ -19,6 +19,7 @@ class Unit {
     level = 1;
     tileLoc = new PVector(x, y);
     loc = new PVector(x*tileSize, y*tileSize);
+    moved = 0;
     if (id == 0) {
       name = "Soccer Mom";
       img = soccerMom;
@@ -98,17 +99,25 @@ class Unit {
       }
       imageMode(CORNER);
       imageV(img, loc.x, loc.y, imgSize, imgSize);
-      if (mouseX <= tileSize * tilesX && mousePressed) {
+      if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
         Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
-        Tile tile2 = tiles[int(mouseX)/tileSize][int(mouseY)/tileSize];
+        Tile tile2 = tiles[int(mouseTile().x)][int(mouseTile().y)];
         int tDist = tileDist(tile1, tile2);
-        if (tileDist(tile1, tile2) <= range - moved) {
-          moved += tDist;
-          tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
-          loc = new PVector(tile2.loc.x, tile2.loc.y);
+        println(tDist + moved);
+        println(tile2.loc+"     "+(tDist <= range - moved));
+        if (mousePressed) {
+          if (tDist + moved <= range) {
+            moved += tDist;
+            tile1.occupied = false;
+            tile2.occupied = true;
+            tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+            loc = new PVector(tile2.loc.x, tile2.loc.y);
+            move = false;
+          }
         }
       }
     }
+    println("Loc: "+loc);
   }
   void update() {
     if (button(loc.x, loc.y, imgSize, imgSize)) {
