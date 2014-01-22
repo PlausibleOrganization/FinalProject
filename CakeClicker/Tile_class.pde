@@ -22,10 +22,10 @@ class Tile {
       tint(0,0,100*s.briScale,100);
     } 
     else if (owner == 0) {
-      tint(0, 25, 100*s.briScale, 50);
+      tint(0, 50, 100*s.briScale, 50);
     } 
     else if (owner == 1) {
-      tint(240, 25, 100*s.briScale, 50);
+      tint(240, 50, 100*s.briScale, 50);
     }
     if (improvement == 0) {
       image(grasslands, loc.x, loc.y, tileSize, tileSize);
