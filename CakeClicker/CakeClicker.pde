@@ -73,6 +73,10 @@ void draw() {
     }
     players[turnMod].display();
     players[turnMod].update();
+    for (int i = 0; i < players.length; i++) {
+      players[i].updateUnits();
+      players[i].displayUnits();
+    }
   }
   //pause screen
   if (gameMode.x == 2) {
