@@ -5,12 +5,14 @@ class Unit {
   int range, moved;
   int owner, id, level;
   PImage img;
-  boolean selected;
+  boolean selected, move, allowMove;
   int imgSize;
 
   Unit(int owner_, int id_, float x, float y) {
     deselector();
     selected = true;
+    move = false;
+    allowMove = true;
     imgSize = tileSize/2;
     owner = owner_;
     id = id_;
@@ -59,7 +61,8 @@ class Unit {
     }
   }
   void unitMenu() {
-    colorMode(HSB, 255, 255, 255);
+    rectMode(CORNER);
+    colorMode(RGB, 255, 255, 255);
     fillV(255);
     rect(width - 175, 250, 150, 225);
     fillV(200);
@@ -68,14 +71,44 @@ class Unit {
     textSize(10);
     textAlign(CORNER);
     //should be formatted into one text function
-    text("Owned by Player "+(owner+1), width-170, 265);
-    text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 280);
-    text(name, width-170, 295);
-    text("Level "+level, width-170, 310);
-    text("Movement: "+moved+"/"+range, width-170, 325);
-    text("Health: "+hp+"/"+maxhp, width-170, 340);
-    text("ATK: "+atk, width-170, 355);
-    text("DEF: "+def, width-130, 355);
+    text("Owned by Player "+(owner+1)+"\nLocation: "+int(tileLoc.x)+" , "+int(tileLoc.y)+"\n"+name+"\nLevel "+level+"\nMovement: "+moved+"/"+range+"\nHealth: "+hp+"/"+maxhp+"\nATK: "+atk+" DEF:"+def, width-170, 265);
+    fillV(100);
+    rect(width-170, 370, 140, 36);
+    textAlign(CENTER);
+    textSize(25);
+    fillV(0);
+    text("MOVE", width-100, 395);
+    if (moved == range) {
+      allowMove = false;
+      textSize(15);
+      text("YOU HAVE USED THIS UNIT'S MOVES", width-170, 420);
+    }
+    if (button(width-170, 370, 140, 36) && allowMove) {
+      move = !move;
+      allowMove = false;
+    }
+    if (move) {
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
+            fillV(100);
+            rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
+          }
+        }
+      }
+      imageMode(CORNER);
+      imageV(img, loc.x, loc.y, imgSize, imgSize);
+      if (mouseX <= tileSize * tilesX && mousePressed) {
+        Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
+        Tile tile2 = tiles[int(mouseX)/tileSize][int(mouseY)/tileSize];
+        int tDist = tileDist(tile1, tile2);
+        if (tileDist(tile1, tile2) <= range - moved) {
+          moved += tDist;
+          tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+          loc = new PVector(tile2.loc.x, tile2.loc.y);
+        }
+      }
+    }
   }
   void update() {
     if (button(loc.x, loc.y, imgSize, imgSize)) {
@@ -87,12 +120,6 @@ class Unit {
         selected = false;
       }
     }
-  }
-
-  void selectMenu() {
-    rectMode(CENTER);
-    rect(width/2, height/2, 100, 500);
-    rectMode(CORNER);
   }
 }
 
