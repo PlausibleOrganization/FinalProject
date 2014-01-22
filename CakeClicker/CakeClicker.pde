@@ -14,6 +14,7 @@ PauseMenu p;
 Settings s;
 StartMenu st;
 Instruct in;
+timer ti;
 
 void setup() {
   size(1000, 800);
@@ -48,6 +49,7 @@ void setup() {
   s = new Settings();
   st = new StartMenu();
   in = new Instruct();
+  ti = new timer(60000);
 }
 
 void draw() {
@@ -64,6 +66,7 @@ void draw() {
   //game screens
   if (gameMode.x == 1) {
     gameMode.y = turn;
+    ti.time();
     pauseAndQuit();
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {
@@ -89,7 +92,7 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
-  println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
+  //println("City owner 1: "+tiles[0][0].owner+" Tile owner 1: "+tiles[1][0].owner+" City owner 2: "+tiles[tilesX-1][tilesY-1].owner+" Tile owner 2: "+tiles[tilesX-2][tilesY-2].owner);
 }
 
 void keyPressed() {
@@ -107,6 +110,9 @@ void keyPressed() {
   //soley for debugging
   if (key == 'q') {
     players[0].cakes += 50;
+  }
+  if (key == 'z') {
+    players[1].cakes += 50;
   }
 }
 
