@@ -32,12 +32,19 @@ class timer {
     deselector();
     oldTurn = turn;
     oldTime = millis();
+    for (int i = players[turnMod].units.size()-1; i > -1; i--) {
+      players[turnMod].units.get(i).moved = 0;
+    }
   }
   String viewTime() {
     int t = secspassed- (newTime - oldTime); 
     int min = (t/60000)/1000;
     int sec = (t%60000)/1000;
-    String time = min+":"+sec;
+    String secS = str(sec);
+    if (secS.length() == 1) {
+      secS = "0"+secS;
+    }
+    String time = min+":"+secS;
     return time;
   }
 }

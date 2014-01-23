@@ -104,7 +104,17 @@ class Unit {
           }
         }
         imageMode(CORNER);
+        for (int i = 0; i < players.length; i++) {
+          for (int j = players[i].units.size()-1; j > -1; j--) {
+            Unit unit = players[i].units.get(j);
+            imageV(unit.img, unit.loc.x, unit.loc.y, unit.imgSize, unit.imgSize);
+          }
+        }
         imageV(img, loc.x, loc.y, imgSize, imgSize);
+        textAlign(CENTER);
+        textSize(25);
+        fillV(0);
+        text("Mouse over your target tile \nand press the M key to move!", tilesX*tileSize/2, tilesX*tileSize/2);
         if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
           Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
           Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
@@ -121,10 +131,11 @@ class Unit {
           }
         }
       }
-    } else {
+    } 
+    else {
       textSize(20);
       textAlign(CORNER);
-     text("THiS IS NOT \nYOUR UNIT", width-170, 390); 
+      text("THiS IS NOT \nYOUR UNIT", width-170, 390);
     }
   }
   void update() {
