@@ -24,7 +24,7 @@ class Player {
   void updateUnits() {
     for (int i = units.size() - 1; i > -1; i--) {
       Unit unit = units.get(i);
-      unit.update();
+      unit.update(i);
     }
   }
 

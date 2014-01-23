@@ -8,6 +8,9 @@ class Unit {
   boolean selected, move, allowMove;
   int imgSize;
 
+  Unit() {
+  }
+
   Unit(int owner_, int id_, float x, float y) {
     deselector();
     selected = true;
@@ -24,7 +27,7 @@ class Unit {
       name = "Soccer Mom";
       img = soccerMom;
       hp = 100;
-      atk = 60;
+      atk = 75;
       def = 30;
       range = 2;
     } 
@@ -32,7 +35,7 @@ class Unit {
       name = "Soccer Mom Cavalry";
       img = van;
       hp = 100;
-      atk = 40;
+      atk = 60;
       def = 30;
       range = 4;
     }
@@ -40,7 +43,7 @@ class Unit {
       name = "Farmer";
       img = farmer;
       hp = 150;
-      atk = 30;
+      atk = 50;
       def = 50;
       range = 1;
     }
@@ -133,25 +136,45 @@ class Unit {
       Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
       int tDist = tileDist(tile1, tile2);
       if (tDist + moved <= range) {
-        if (!tile2.occupied) {
-          if (keyPressed && key == 'm') {
+        if (keyPressed && key == 'm') {
+          move = false;
+          if (!tile2.occupied) {
             moved += tDist;
             tile1.occupied = false;
             tile2.occupied = true;
             tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
             loc = new PVector(tile2.loc.x, tile2.loc.y);
-            move = false;
           } 
           else {
-            //somecombatstuff
+            Unit u;
+            u = new Unit();
+            for (int i = 0; i < players.length; i++) {
+              for (int j = players[i].units.size()-1; j > -1; j--) {
+                if (players[i].units.get(j).tileLoc == tile2.tileLoc) {
+                  
+                  u = players[i].units.get(j);
+                }
+              }
+            }
+            for (int i = 0; i < players.length; i++) {
+              for (int j = players[i].units.size()-1; j > -1; j--) {
+                players[i].units.get(j).update(j);
+              }
+            }
+            float power = atk - u.def;
+            power *= random(.75, 1.25);
+            u.hp -= int(power);
+            if (u.hp <= 0) {
+              println("Owner: "+u.owner+", ID:"+u.id);
+              players[u.owner].units.remove(u.id);
+            }
           }
         }
       }
     }
   }
-  void combat(Unit u) {
-  }
-  void update() {
+  void update(int id_) {
+    id = id_;
     if (button(loc.x, loc.y, imgSize, imgSize)) {
       deselector();
       selected = true;
