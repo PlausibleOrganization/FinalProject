@@ -27,7 +27,7 @@ class Unit {
       hp = 100;
       atk = 75;
       def = 30;
-      range = 2;
+      range = 3;
     } 
     else if (unitId == 1) {
       name = "Soccer Mom Cavalry";
@@ -35,28 +35,29 @@ class Unit {
       hp = 100;
       atk = 60;
       def = 30;
-      range = 4;
+      range = 6;
     }
     else if (unitId == 2) {
       name = "Farmer";
       img = farmer;
-      hp = 150;
+      hp = 200;
       atk = 50;
       def = 50;
-      range = 1;
+      range = 2;
     }
     else if (unitId == 3) {
       name = "Rocket";
       img = rocket;
       hp = 1;
-      atk = 500;
+      atk = 300;
       def = 1;
-      range = 20;
+      range = 10;
     }
     maxhp = hp;
   }
   void display() {
     displayImage();
+    displayNumber();
     if (selected) {
       unitMenu();
     }
@@ -64,15 +65,20 @@ class Unit {
 
   void displayImage() {
     imageMode(CORNER);
+    colorMode(RGB, 255, 255, 255);
+    imageV(img, loc.x, loc.y, imgSize, imgSize);
+  }
+
+  void displayNumber() {
     textAlign(CENTER);
     textSize(imgSize);
-    colorMode(RGB, 255, 255, 255);
-    image(img, loc.x, loc.y, imgSize, imgSize);
     if (owner == 0) {
-      fill(255, 0, 0);
+      colorMode(RGB, 255, 255, 255);
+      fillV(255, 0, 0);
     } 
     else if (owner == 1) {
-      fill(0, 0, 255);
+      colorMode(RGB, 255, 255, 255);
+      fillV(0, 0, 255);
     }
     text(owner+1, loc.x+20, loc.y+30);
   }
@@ -125,11 +131,11 @@ class Unit {
         if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
           if (owner == 0) { 
             colorMode(RGB, 255, 255, 255);
-            fillV(255,0,0);
+            fillV(255, 0, 0);
           } 
           else if (owner == 1) {
             colorMode(RGB, 255, 255, 255);
-            fillV(0,0,255);
+            fillV(0, 0, 255);
           }
           rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
           imageMode(CENTER);
@@ -176,7 +182,7 @@ class Unit {
               float power = atk - u.def;
               power *= random(.75, 1.25);
               if (tile2.improvement == 1) {
-               power /= 3; 
+                power /= 3;
               }
               u.hp -= int(power);
               if (u.hp <= 0) {

@@ -125,6 +125,9 @@ class Tile {
         selected = false;
       }
     }
+    if (occupied && owner != -1 && owner != unit.x) {
+      owner = int(unit.x);
+    }
   }
 }
 
