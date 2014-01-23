@@ -126,7 +126,7 @@ void mouseReleased() {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
     for (int j = players[i].units.size()-1; j > -1; j--) {
-      players[i].units.get(i).allowMove = true;
+      players[i].units.get(j).allowMove = true;
     }
   }
   for (int i = 0; i < tilesX; i++) {

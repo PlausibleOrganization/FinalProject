@@ -9,15 +9,18 @@ class timer {
   }
 
   void time() {
+    if (turn != oldTurn) {
+      endTurn();
+    }
     if (!called) {
       firstTime = millis();
       called = true;
     }
-    newTime = millis() - firstTime;
-    //  }
-    if (turn != oldTurn) {
-      oldTime = millis();
-      endTurn();
+    if (turn == 0) {
+      newTime = millis() - firstTime;
+    } 
+    else {
+      newTime = millis();
     }
     if (newTime - oldTime >= secspassed) {
       oldTime = newTime;
@@ -28,6 +31,7 @@ class timer {
   void endTurn() {
     deselector();
     oldTurn = turn;
+    oldTime = millis();
   }
   String viewTime() {
     int t = secspassed- (newTime - oldTime); 
