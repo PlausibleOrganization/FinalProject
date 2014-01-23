@@ -120,13 +120,17 @@ class Unit {
           Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
           int tDist = tileDist(tile1, tile2);
           if (tDist + moved <= range) {
-            if (keyPressed && key == 'm') {
-              moved += tDist;
-              tile1.occupied = false;
-              tile2.occupied = true;
-              tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
-              loc = new PVector(tile2.loc.x, tile2.loc.y);
-              move = false;
+            if (!tile2.occupied) {
+              if (keyPressed && key == 'm') {
+                moved += tDist;
+                tile1.occupied = false;
+                tile2.occupied = true;
+                tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+                loc = new PVector(tile2.loc.x, tile2.loc.y);
+                move = false;
+              } else {
+               //somecombatstuff 
+              }
             }
           }
         }

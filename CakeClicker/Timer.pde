@@ -35,6 +35,11 @@ class timer {
     for (int i = players[turnMod].units.size()-1; i > -1; i--) {
       players[turnMod].units.get(i).moved = 0;
     }
+      for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].unitsBought = 0;
+    }
+  }
   }
   String viewTime() {
     int t = secspassed- (newTime - oldTime); 
