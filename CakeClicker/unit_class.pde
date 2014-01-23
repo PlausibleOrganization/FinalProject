@@ -109,10 +109,8 @@ class Unit {
           Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
           Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
           int tDist = tileDist(tile1, tile2);
-          println(mouseTile.x);
           if (tDist + moved <= range) {
             if (keyPressed && key == 'm') {
-              println(true);
               moved += tDist;
               tile1.occupied = false;
               tile2.occupied = true;

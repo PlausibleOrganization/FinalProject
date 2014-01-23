@@ -17,6 +17,7 @@ Instruct in;
 timer ti;
 
 void setup() {
+  println(turn);
   size(1000, 800);
   //construct all PImages
   constructImages();
@@ -96,7 +97,6 @@ void draw() {
   if (gameMode.x == 3) {
     in.instructions();
   }
-  println(ti.viewTime());
 }
 
 void keyPressed() {

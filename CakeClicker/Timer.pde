@@ -1,17 +1,20 @@
 class timer {
-  int newTime, oldTime, oldTurn, secspassed;
+  int newTime, oldTime, oldTurn, secspassed, firstTime;
+  boolean called;
 
   timer(int n) {
     secspassed = n;
-    oldTurn = turn;
+    oldTurn = 0;
+    called = false;
   }
 
   void time() {
-    if (turn == 0) {
-      newTime = millis() + 4000;
-    } else {
-     newTime = millis(); 
+    if (!called) {
+      firstTime = millis();
+      called = true;
     }
+    newTime = millis() - firstTime;
+    //  }
     if (turn != oldTurn) {
       oldTime = millis();
       endTurn();
