@@ -3,6 +3,7 @@ class Tile {
   int size, improvement, owner, level, unitsBought, cityDist;
   boolean selected, occupied, allowBuy;
   String name;
+  PImage img;
 
   Tile(int loci, int locj) {
     selected = false;
@@ -15,6 +16,11 @@ class Tile {
     loc = new PVector(loci*size, locj*size);
     cityDist = tilesX + tilesY;
     unit = new PVector(-1, -1);
+        if (improvement == 0) {
+          img = grasslands;
+        } else if (improvement == 1) {
+         img = city; 
+        }
   }
 
   void display() {
@@ -29,12 +35,7 @@ class Tile {
     else if (owner == 1) {
       tint(240, 50, 100*s.briScale, 50);
     }
-    if (improvement == 0) {
-      image(grasslands, loc.x, loc.y, tileSize, tileSize);
-    } 
-    else if (improvement == 1) { 
-      image(city, loc.x, loc.y, tileSize, tileSize);
-    }
+      image(img, loc.x, loc.y, tileSize, tileSize);
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {

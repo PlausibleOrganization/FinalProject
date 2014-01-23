@@ -7,7 +7,6 @@ Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
 UnitData[] unitData = new UnitData[4];
-boolean mouseReleased;
 int turn;
 int turnMod;
 PauseMenu p;
