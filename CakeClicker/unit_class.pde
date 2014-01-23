@@ -11,14 +11,14 @@ class Unit {
   Unit() {
   }
 
-  Unit(int owner_, int id_, float x, float y) {
+  Unit(float owner_, float id_, float x, float y) {
     deselector();
     selected = true;
     move = false;
     allowMove = true;
     imgSize = tileSize/2;
-    owner = owner_;
-    id = id_;
+    owner = int(owner_);
+    id = int(id_);
     level = 1;
     tileLoc = new PVector(x, y);
     loc = new PVector(x*tileSize, y*tileSize);
@@ -146,16 +146,18 @@ class Unit {
             loc = new PVector(tile2.loc.x, tile2.loc.y);
           } 
           else {
-            Unit u;
-            u = new Unit();
+            float[] unit = new float[4];
+            unit[2] = tile2.tileLoc.x;
+            unit[3] = tile2.tileLoc.y;
             for (int i = 0; i < players.length; i++) {
               for (int j = players[i].units.size()-1; j > -1; j--) {
-                if (players[i].units.get(j).tileLoc == tile2.tileLoc) {
-                  
-                  u = players[i].units.get(j);
+                if (players[i].units.get(j).tileLoc == tile2.tileLoc) {                  
+                  unit[0] = players[i].units.get(j).owner;
+                  unit[1] = players[i].units.get(j).id;
                 }
               }
             }
+            Unit u = new Unit(unit[0], unit[1], unit[2], unit[3]);
             for (int i = 0; i < players.length; i++) {
               for (int j = players[i].units.size()-1; j > -1; j--) {
                 players[i].units.get(j).update(j);
