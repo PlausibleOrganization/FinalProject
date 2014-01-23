@@ -3,7 +3,7 @@ class Unit {
   String name;
   int atk, def, hp, maxhp;
   int range, moved;
-  int owner, id, level;
+  int owner, unitId, level, index;
   PImage img;
   boolean selected, move, allowMove;
   int imgSize;
@@ -11,19 +11,20 @@ class Unit {
   Unit() {
   }
 
-  Unit(float owner_, float id_, float x, float y) {
+  Unit(float owner_, float unitId_, float x, float y) {
     deselector();
     selected = true;
     move = false;
     allowMove = true;
     imgSize = tileSize/2;
     owner = int(owner_);
-    id = int(id_);
+    unitId = int(unitId_);
     level = 1;
     tileLoc = new PVector(x, y);
     loc = new PVector(x*tileSize, y*tileSize);
     moved = 0;
-    if (id == 0) {
+    index = -1;
+    if (unitId == 0) {
       name = "Soccer Mom";
       img = soccerMom;
       hp = 100;
@@ -31,7 +32,7 @@ class Unit {
       def = 30;
       range = 2;
     } 
-    else if (id == 1) {
+    else if (unitId == 1) {
       name = "Soccer Mom Cavalry";
       img = van;
       hp = 100;
@@ -39,7 +40,7 @@ class Unit {
       def = 30;
       range = 4;
     }
-    else if (id == 2) {
+    else if (unitId == 2) {
       name = "Farmer";
       img = farmer;
       hp = 150;
@@ -47,7 +48,7 @@ class Unit {
       def = 50;
       range = 1;
     }
-    else if (id == 3) {
+    else if (unitId == 3) {
       name = "Rocket";
       img = rocket;
       hp = 1;
@@ -144,20 +145,11 @@ class Unit {
             tile2.occupied = true;
             tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
             loc = new PVector(tile2.loc.x, tile2.loc.y);
+            tile1.unit = new PVector(-1, -1);
+            tile2.unit = new PVector(owner, index);
           } 
           else {
-            float[] unit = new float[4];
-            unit[2] = tile2.tileLoc.x;
-            unit[3] = tile2.tileLoc.y;
-            for (int i = 0; i < players.length; i++) {
-              for (int j = players[i].units.size()-1; j > -1; j--) {
-                if (players[i].units.get(j).tileLoc == tile2.tileLoc) {                  
-                  unit[0] = players[i].units.get(j).owner;
-                  unit[1] = players[i].units.get(j).id;
-                }
-              }
-            }
-            Unit u = new Unit(unit[0], unit[1], unit[2], unit[3]);
+            Unit u = players[int(tile2.unit.x)].units.get(int(tile2.unit.y));
             for (int i = 0; i < players.length; i++) {
               for (int j = players[i].units.size()-1; j > -1; j--) {
                 players[i].units.get(j).update(j);
@@ -167,16 +159,15 @@ class Unit {
             power *= random(.75, 1.25);
             u.hp -= int(power);
             if (u.hp <= 0) {
-              println("Owner: "+u.owner+", ID:"+u.id);
-              players[u.owner].units.remove(u.id);
+              players[u.owner].units.remove(u.index);
             }
           }
         }
       }
     }
   }
-  void update(int id_) {
-    id = id_;
+  void update(int index_) {
+    index = index_;
     if (button(loc.x, loc.y, imgSize, imgSize)) {
       deselector();
       selected = true;
@@ -191,31 +182,31 @@ class Unit {
 
 class UnitData {
   String name;
-  int id, cost;
+  int unitId, cost;
   PImage img;
   PVector menuLoc;
 
-  UnitData(int id_) {
-    id = id_;
-    if (id == 0) {
+  UnitData(int unitId_) {
+    unitId = unitId_;
+    if (unitId == 0) {
       name = "Soccer Mom";
       img = soccerMom;
       cost = 50;
       menuLoc = new PVector(width-170, 340);
     } 
-    else if (id == 1) {
+    else if (unitId == 1) {
       name = "Soccer Mom Cavalry";
       img = van;
       cost = 150;
       menuLoc = new PVector(width-120, 340);
     }
-    else if (id == 2) {
+    else if (unitId == 2) {
       name = "Farmer";
       img = farmer;
       cost = 500;
       menuLoc = new PVector(width-170, 390);
     }
-    else if (id == 3) {
+    else if (unitId == 3) {
       name = "Rocket";
       img = rocket;
       cost = 40000;

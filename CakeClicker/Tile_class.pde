@@ -1,6 +1,6 @@
 class Tile {
-  PVector loc, tileLoc, nearestCity;
-  int size, improvement, owner, level, unitsBought, cityDist; 
+  PVector loc, tileLoc, nearestCity, unit;
+  int size, improvement, owner, level, unitsBought, cityDist;
   boolean selected, occupied, allowBuy;
   String name;
 
@@ -14,12 +14,13 @@ class Tile {
     tileLoc = new PVector(loci, locj);
     loc = new PVector(loci*size, locj*size);
     cityDist = tilesX + tilesY;
+    unit = new PVector(-1, -1);
   }
 
   void display() {
-        colorMode(HSB, 360, 100, 100);
+    colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
-      tint(0,0,100*s.briScale,100);
+      tint(0, 0, 100*s.briScale, 100);
     } 
     else if (owner == 0) {
       tint(0, 50, 100*s.briScale, 50);
@@ -36,7 +37,7 @@ class Tile {
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {
-        tileMenu();
+      tileMenu();
     }
   }
   void setCity() {
@@ -88,6 +89,8 @@ class Tile {
               players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
               unitsBought++;
               occupied = true;
+              unit.x = owner;
+              unit.y = players[turnMod].units.size()-1;
             }
           }
         }
