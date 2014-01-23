@@ -95,45 +95,7 @@ class Unit {
         allowMove = false;
       }
       if (move) {
-        for (int i = 0; i < tilesX; i++) {
-          for (int j = 0; j < tilesY; j++) {
-            if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
-              fillV(100);
-              rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
-            }
-          }
-        }
-        imageMode(CORNER);
-        for (int i = 0; i < players.length; i++) {
-          for (int j = players[i].units.size()-1; j > -1; j--) {
-            Unit unit = players[i].units.get(j);
-            imageV(unit.img, unit.loc.x, unit.loc.y, unit.imgSize, unit.imgSize);
-          }
-        }
-        imageV(img, loc.x, loc.y, imgSize, imgSize);
-        textAlign(CENTER);
-        textSize(25);
-        fillV(0);
-        text("Mouse over your target tile \nand press the M key to move!", tilesX*tileSize/2, tilesX*tileSize/2);
-        if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
-          Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
-          Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
-          int tDist = tileDist(tile1, tile2);
-          if (tDist + moved <= range) {
-            if (!tile2.occupied) {
-              if (keyPressed && key == 'm') {
-                moved += tDist;
-                tile1.occupied = false;
-                tile2.occupied = true;
-                tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
-                loc = new PVector(tile2.loc.x, tile2.loc.y);
-                move = false;
-              } else {
-               //somecombatstuff 
-              }
-            }
-          }
-        }
+        move();
       }
     } 
     else {
@@ -141,6 +103,53 @@ class Unit {
       textAlign(CORNER);
       text("THiS IS NOT \nYOUR UNIT", width-170, 390);
     }
+  }
+  void move() {
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
+          fillV(100, 100);
+          rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
+        }
+        if (tiles[i][j].improvement == 1) {
+          imageV(city, tiles[i][j].loc.x + tileSize/4, tiles[i][j].loc.y + tileSize/4, tileSize/2, tileSize/2);
+        }
+      }
+    }
+    imageMode(CORNER);
+    for (int i = 0; i < players.length; i++) {
+      for (int j = players[i].units.size()-1; j > -1; j--) {
+        Unit unit = players[i].units.get(j);
+        imageV(unit.img, unit.loc.x, unit.loc.y, unit.imgSize, unit.imgSize);
+      }
+    }
+    imageV(img, loc.x, loc.y, imgSize, imgSize);
+    textAlign(CENTER);
+    textSize(25);
+    fillV(0);
+    text("Mouse over your target tile \nand press the M key to move!", tilesX*tileSize/2, tilesX*tileSize/2);
+    if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
+      Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
+      Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
+      int tDist = tileDist(tile1, tile2);
+      if (tDist + moved <= range) {
+        if (!tile2.occupied) {
+          if (keyPressed && key == 'm') {
+            moved += tDist;
+            tile1.occupied = false;
+            tile2.occupied = true;
+            tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+            loc = new PVector(tile2.loc.x, tile2.loc.y);
+            move = false;
+          } 
+          else {
+            //somecombatstuff
+          }
+        }
+      }
+    }
+  }
+  void combat(Unit u) {
   }
   void update() {
     if (button(loc.x, loc.y, imgSize, imgSize)) {
