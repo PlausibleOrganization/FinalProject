@@ -16,11 +16,6 @@ class Tile {
     loc = new PVector(loci*size, locj*size);
     cityDist = tilesX + tilesY;
     unit = new PVector(-1, -1);
-        if (improvement == 0) {
-          img = grasslands;
-        } else if (improvement == 1) {
-         img = city; 
-        }
   }
 
   void display() {
@@ -35,7 +30,7 @@ class Tile {
     else if (owner == 1) {
       tint(240, 50, 100*s.briScale, 50);
     }
-      image(img, loc.x, loc.y, tileSize, tileSize);
+    image(img, loc.x, loc.y, tileSize, tileSize);
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {
@@ -52,6 +47,7 @@ class Tile {
       }
     }
   }
+
   void tileMenu() {
     colorMode(HSB, 255, 255, 255);
     fillV(255);
@@ -104,8 +100,10 @@ class Tile {
       }
     }
   }
+
   void update() {
     if (improvement == 0) {
+      img = grasslands;
       name = "Grassland";
       level = 0;
     } 
@@ -114,6 +112,7 @@ class Tile {
         level = 1;
       }
       if (improvement == 1) {
+        img = city;
         name = "City";
       }
     }

@@ -8,9 +8,6 @@ class Unit {
   boolean selected, move, allowMove;
   int imgSize;
 
-  Unit() {
-  }
-
   Unit(float owner_, float unitId_, float x, float y) {
     deselector();
     selected = true;
@@ -126,12 +123,17 @@ class Unit {
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {
         if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
-          fillV(100, 100);
-          rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
-          if (tiles[i][j].improvement == 1) {
-            imageMode(CENTER);
-            imageV(city, tiles[i][j].loc.x + tileSize/2, tiles[i][j].loc.y + tileSize/2, tileSize*.85, tileSize*.85);
+          if (owner == 0) { 
+            colorMode(RGB, 255, 255, 255);
+            fillV(255,0,0);
+          } 
+          else if (owner == 1) {
+            colorMode(RGB, 255, 255, 255);
+            fillV(0,0,255);
           }
+          rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
+          imageMode(CENTER);
+          imageV(tiles[i][j].img, tiles[i][j].loc.x + tileSize/2, tiles[i][j].loc.y + tileSize/2, tileSize*.85, tileSize*.85);
         }
       }
     }
@@ -173,6 +175,9 @@ class Unit {
             if (owner != u.owner) {
               float power = atk - u.def;
               power *= random(.75, 1.25);
+              if (tile2.improvement == 1) {
+               power /= 3; 
+              }
               u.hp -= int(power);
               if (u.hp <= 0) {
                 players[u.owner].units.remove(u.index);
