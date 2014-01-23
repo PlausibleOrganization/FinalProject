@@ -18,6 +18,7 @@ class Tile {
   }
 
   void display() {
+    imageMode(CORNER);
     colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
       tint(0, 0, 100*s.briScale, 100);

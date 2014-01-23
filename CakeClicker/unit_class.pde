@@ -59,11 +59,25 @@ class Unit {
     maxhp = hp;
   }
   void display() {
-    imageMode(CORNER);
-    imageV(img, loc.x, loc.y, imgSize, imgSize);
+    displayImage();
     if (selected) {
       unitMenu();
     }
+  }
+
+  void displayImage() {
+    imageMode(CORNER);
+    textAlign(CENTER);
+    textSize(imgSize);
+    colorMode(RGB, 255, 255, 255);
+    image(img, loc.x, loc.y, imgSize, imgSize);
+    if (owner == 0) {
+      fill(255, 0, 0);
+    } 
+    else if (owner == 1) {
+      fill(0, 0, 255);
+    }
+    text(owner+1, loc.x+20, loc.y+30);
   }
 
   void unitMenu() {
@@ -105,7 +119,7 @@ class Unit {
     else {
       textSize(20);
       textAlign(CORNER);
-      text("THiS IS NOT \nYOUR UNIT", width-170, 390);
+      text("THIS IS NOT \nYOUR UNIT", width-170, 390);
     }
   }
   void move() {
@@ -114,9 +128,10 @@ class Unit {
         if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
           fillV(100, 100);
           rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
-        }
-        if (tiles[i][j].improvement == 1) {
-          imageV(city, tiles[i][j].loc.x + tileSize/4, tiles[i][j].loc.y + tileSize/4, tileSize/2, tileSize/2);
+          if (tiles[i][j].improvement == 1) {
+            imageMode(CENTER);
+            imageV(city, tiles[i][j].loc.x + tileSize/2, tiles[i][j].loc.y + tileSize/2, tileSize*.85, tileSize*.85);
+          }
         }
       }
     }
@@ -124,7 +139,7 @@ class Unit {
     for (int i = 0; i < players.length; i++) {
       for (int j = players[i].units.size()-1; j > -1; j--) {
         Unit unit = players[i].units.get(j);
-        imageV(unit.img, unit.loc.x, unit.loc.y, unit.imgSize, unit.imgSize);
+        unit.displayImage();
       }
     }
     imageV(img, loc.x, loc.y, imgSize, imgSize);
@@ -155,11 +170,13 @@ class Unit {
                 players[i].units.get(j).update(j);
               }
             }
-            float power = atk - u.def;
-            power *= random(.75, 1.25);
-            u.hp -= int(power);
-            if (u.hp <= 0) {
-              players[u.owner].units.remove(u.index);
+            if (owner != u.owner) {
+              float power = atk - u.def;
+              power *= random(.75, 1.25);
+              u.hp -= int(power);
+              if (u.hp <= 0) {
+                players[u.owner].units.remove(u.index);
+              }
             }
           }
         }
