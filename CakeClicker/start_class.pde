@@ -1,6 +1,8 @@
 class StartMenu {
-  ArrayList<cake>cakes = new ArrayList<cake>(5);
+  ArrayList<cake>cakes = new ArrayList<cake>();
+  int maxCakes;
   StartMenu() {
+    maxCakes = 100;
   }
   //set state to start menu
   void set() {
@@ -8,8 +10,8 @@ class StartMenu {
   }
   void display() {
     //draws cakes
-    if (cakes.size() < 10) {
-      cakes.add(new cake(random(width), 0));
+    if (cakes.size() < maxCakes) {
+      cakes.add(new cake(random(width), random(height)));
     }
     for (int i = cakes.size() - 1; i > 0; i--) {
       cake c = cakes.get(i);
