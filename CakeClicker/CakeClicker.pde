@@ -7,13 +7,13 @@ Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
 UnitData[] unitData = new UnitData[4];
-boolean mouseReleased;
 int turn;
 int turnMod;
 PauseMenu p;
 Settings s;
 StartMenu st;
 Instruct in;
+timer ti;
 
 void setup() {
   size(1000, 800);
@@ -22,40 +22,17 @@ void setup() {
   //x==0 is for start menu, x==1 is for the game, x==2 for pause menu
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(0, 0);
-  //construct players
-  for (int i = 0; i < players.length; i++) {
-    players[i] = new Player(i);
-  }
-  //construct tiles
-  for (int i = 0; i < tilesX; i++) {
-    for (int j = 0; j < tilesY; j++) {
-      tiles[i][j] = new Tile(i, j);
-    }
-  }
-  //construct unitData
-  for (int i = 0; i < unitData.length; i++) {
-    unitData[i] = new UnitData(i);
-  }
-  //set turn to Player 1;
-  turn = 0;
-  //starting cities
-  tiles[0][0].owner = 0;
-  tiles[0][0].setCity();
-  tiles[tilesX-1][tilesY-1].owner = 1;
-  tiles[tilesX-1][tilesY-1].setCity();
-  //construct menus
-  p = new PauseMenu();
-  s = new Settings();
+  initialize();
   st = new StartMenu();
   in = new Instruct();
 }
 
 void draw() {
   //turnMod is what player's turn it is
-  turnMod = int(gameMode.y % players.length);
   background(0);
   //starting screen
   if (gameMode.x == 0) {
+    turnMod = int(gameMode.y % players.length);
     st.display();
     st.update();
     in.display();
@@ -64,6 +41,7 @@ void draw() {
   //game screens
   if (gameMode.x == 1) {
     gameMode.y = turn;
+    ti.time();
     pauseAndQuit();
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {
@@ -109,7 +87,10 @@ void keyPressed() {
   }
   //soley for debugging
   if (key == 'q') {
-    players[0].cakes += 50;
+    players[0].cakes += 40000;
+  }
+  if (key == 'z') {
+    players[1].cakes += 40000;
   }
 }
 
@@ -119,7 +100,7 @@ void mouseReleased() {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
     for (int j = players[i].units.size()-1; j > -1; j--) {
-      players[i].units.get(i).allowMove = true;
+      players[i].units.get(j).allowMove = true;
     }
   }
   for (int i = 0; i < tilesX; i++) {

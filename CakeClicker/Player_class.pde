@@ -24,7 +24,7 @@ class Player {
   void updateUnits() {
     for (int i = units.size() - 1; i > -1; i--) {
       Unit unit = units.get(i);
-      unit.update();
+      unit.update(i);
     }
   }
 
@@ -48,6 +48,9 @@ class Player {
     text("Cakes: "+int(cakes), width-100, 100);
     textSize(10);
     text("Cakes per second: "+int(cps), width-100, 200);
+    //turn time left
+    textSize(25);
+    text(ti.viewTime(), width-100, 240);
     //end turn button
     rectMode(CORNER);
     fillV(255);
@@ -65,6 +68,7 @@ class Player {
         players[i].allowEnd = false;
       }
       turn++;
+      turnMod = turn % players.length;
     }
   }
 

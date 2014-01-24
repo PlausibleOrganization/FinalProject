@@ -3,63 +3,84 @@ class Unit {
   String name;
   int atk, def, hp, maxhp;
   int range, moved;
-  int owner, id, level;
+  int owner, unitId, level, index;
   PImage img;
   boolean selected, move, allowMove;
   int imgSize;
 
-  Unit(int owner_, int id_, float x, float y) {
+  Unit(float owner_, float unitId_, float x, float y) {
     deselector();
     selected = true;
     move = false;
     allowMove = true;
     imgSize = tileSize/2;
-    owner = owner_;
-    id = id_;
+    owner = int(owner_);
+    unitId = int(unitId_);
     level = 1;
     tileLoc = new PVector(x, y);
     loc = new PVector(x*tileSize, y*tileSize);
     moved = 0;
-    if (id == 0) {
+    index = -1;
+    if (unitId == 0) {
       name = "Soccer Mom";
       img = soccerMom;
       hp = 100;
-      atk = 60;
+      atk = 75;
       def = 30;
-      range = 2;
+      range = 3;
     } 
-    else if (id == 1) {
+    else if (unitId == 1) {
       name = "Soccer Mom Cavalry";
       img = van;
       hp = 100;
-      atk = 40;
+      atk = 60;
       def = 30;
-      range = 4;
+      range = 6;
     }
-    else if (id == 2) {
+    else if (unitId == 2) {
       name = "Farmer";
       img = farmer;
-      hp = 150;
-      atk = 30;
+      hp = 200;
+      atk = 50;
       def = 50;
-      range = 1;
+      range = 2;
     }
-    else if (id == 3) {
+    else if (unitId == 3) {
       name = "Rocket";
       img = rocket;
       hp = 1;
-      atk = 500;
+      atk = 300;
       def = 1;
-      range = 20;
+      range = 10;
     }
     maxhp = hp;
   }
   void display() {
-    imageMode(CORNER);
-    imageV(img, loc.x, loc.y, imgSize, imgSize);
+    displayImage();
+    displayNumber();
     if (selected) {
       unitMenu();
     }
+  }
+
+  void displayImage() {
+    imageMode(CORNER);
+    colorMode(RGB, 255, 255, 255);
+    imageV(img, loc.x, loc.y, imgSize, imgSize);
+  }
+
+  void displayNumber() {
+    textAlign(CENTER);
+    textSize(imgSize);
+    if (owner == 0) {
+      colorMode(RGB, 255, 255, 255);
+      fillV(255, 0, 0);
+    } 
+    else if (owner == 1) {
+      colorMode(RGB, 255, 255, 255);
+      fillV(0, 0, 255);
+    }
+    text(owner+1, loc.x+20, loc.y+30);
   }
 
   void unitMenu() {
@@ -95,41 +116,91 @@ class Unit {
         allowMove = false;
       }
       if (move) {
-        for (int i = 0; i < tilesX; i++) {
-          for (int j = 0; j < tilesY; j++) {
-            if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
-              fillV(100);
-              rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
-            }
+        move();
+      }
+    } 
+    else {
+      textSize(20);
+      textAlign(CORNER);
+      text("THIS IS NOT \nYOUR UNIT", width-170, 390);
+    }
+  }
+  void move() {
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= range - moved) {
+          if (owner == 0) { 
+            colorMode(RGB, 255, 255, 255);
+            fillV(255, 0, 0);
+          } 
+          else if (owner == 1) {
+            colorMode(RGB, 255, 255, 255);
+            fillV(0, 0, 255);
           }
+          rect(tiles[i][j].loc.x, tiles[i][j].loc.y, tileSize, tileSize);
+          imageMode(CENTER);
+          imageV(tiles[i][j].img, tiles[i][j].loc.x + tileSize/2, tiles[i][j].loc.y + tileSize/2, tileSize*.85, tileSize*.85);
         }
-        imageMode(CORNER);
-        imageV(img, loc.x, loc.y, imgSize, imgSize);
-        if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
-          Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
-          Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
-          int tDist = tileDist(tile1, tile2);
-          println(mouseTile.x);
-          if (tDist + moved <= range) {
-            if (keyPressed && key == 'm') {
-              println(true);
-              moved += tDist;
-              tile1.occupied = false;
-              tile2.occupied = true;
-              tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
-              loc = new PVector(tile2.loc.x, tile2.loc.y);
-              move = false;
+      }
+    }
+    imageMode(CORNER);
+    for (int i = 0; i < players.length; i++) {
+      for (int j = players[i].units.size()-1; j > -1; j--) {
+        Unit unit = players[i].units.get(j);
+        unit.displayImage();
+      }
+    }
+    imageV(img, loc.x, loc.y, imgSize, imgSize);
+    textAlign(CENTER);
+    textSize(25);
+    fillV(0);
+    text("Mouse over your target tile \nand press the M key to move!", tilesX*tileSize/2, tilesX*tileSize/2);
+    if (button2(0, 0, tileSize * tilesX, tileSize * tilesY)) {
+      Tile tile1 = tiles[int(tileLoc.x)][int(tileLoc.y)];
+      Tile tile2 = tiles[int(mouseTile.x)][int(mouseTile.y)];
+      int tDist = tileDist(tile1, tile2);
+      if (tDist + moved <= range) {
+        if (keyPressed && key == 'm') {
+          move = false;
+          if (!tile2.occupied) {
+            moved += tDist;
+            tile1.occupied = false;
+            tile2.occupied = true;
+            tileLoc = new PVector(tile2.tileLoc.x, tile2.tileLoc.y);
+            loc = new PVector(tile2.loc.x, tile2.loc.y);
+            tile1.unit = new PVector(-1, -1);
+            tile2.unit = new PVector(owner, index);
+          } 
+          else {
+            Unit u = players[int(tile2.unit.x)].units.get(int(tile2.unit.y));
+            for (int i = 0; i < players.length; i++) {
+              for (int j = players[i].units.size()-1; j > -1; j--) {
+                players[i].units.get(j).update(j);
+              }
+            }
+            if (owner != u.owner) {
+              float power = atk - u.def;
+              power *= random(.75, 1.25);
+              if (tile2.improvement == 1) {
+                power /= 3;
+              }
+              u.hp -= int(power);
+              if (u.hp <= 0) {
+                tile2.occupied = false;
+                players[u.owner].units.remove(u.index);
+                if (unitId == 3) {
+                 tile1.occupied = false;
+                 players[owner].units.remove(index);
+                }
+              }
             }
           }
         }
       }
-    } else {
-      textSize(20);
-      textAlign(CORNER);
-     text("THiS IS NOT \nYOUR UNIT", width-170, 390); 
     }
   }
-  void update() {
+  void update(int index_) {
+    index = index_;
     if (button(loc.x, loc.y, imgSize, imgSize)) {
       deselector();
       selected = true;
@@ -144,31 +215,31 @@ class Unit {
 
 class UnitData {
   String name;
-  int id, cost;
+  int unitId, cost;
   PImage img;
   PVector menuLoc;
 
-  UnitData(int id_) {
-    id = id_;
-    if (id == 0) {
+  UnitData(int unitId_) {
+    unitId = unitId_;
+    if (unitId == 0) {
       name = "Soccer Mom";
       img = soccerMom;
       cost = 50;
       menuLoc = new PVector(width-170, 340);
     } 
-    else if (id == 1) {
+    else if (unitId == 1) {
       name = "Soccer Mom Cavalry";
       img = van;
       cost = 150;
       menuLoc = new PVector(width-120, 340);
     }
-    else if (id == 2) {
+    else if (unitId == 2) {
       name = "Farmer";
       img = farmer;
       cost = 500;
       menuLoc = new PVector(width-170, 390);
     }
-    else if (id == 3) {
+    else if (unitId == 3) {
       name = "Rocket";
       img = rocket;
       cost = 40000;

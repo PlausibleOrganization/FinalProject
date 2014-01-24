@@ -1,8 +1,9 @@
 class Tile {
-  PVector loc, tileLoc, nearestCity;
-  int size, improvement, owner, level, unitsBought, cityDist; 
+  PVector loc, tileLoc, nearestCity, unit;
+  int size, improvement, owner, level, unitsBought, cityDist;
   boolean selected, occupied, allowBuy;
   String name;
+  PImage img;
 
   Tile(int loci, int locj) {
     selected = false;
@@ -14,12 +15,14 @@ class Tile {
     tileLoc = new PVector(loci, locj);
     loc = new PVector(loci*size, locj*size);
     cityDist = tilesX + tilesY;
+    unit = new PVector(-1, -1);
   }
 
   void display() {
-        colorMode(HSB, 360, 100, 100);
+    imageMode(CORNER);
+    colorMode(HSB, 360, 100, 100);
     if (owner == -1) {
-      tint(0,0,100*s.briScale,100);
+      tint(0, 0, 100*s.briScale, 100);
     } 
     else if (owner == 0) {
       tint(0, 50, 100*s.briScale, 50);
@@ -27,28 +30,26 @@ class Tile {
     else if (owner == 1) {
       tint(240, 50, 100*s.briScale, 50);
     }
-    if (improvement == 0) {
-      image(grasslands, loc.x, loc.y, tileSize, tileSize);
-    } 
-    else if (improvement == 1) { 
-      image(city, loc.x, loc.y, tileSize, tileSize);
-    }
+    image(img, loc.x, loc.y, tileSize, tileSize);
     rectMode(CORNER);
     //rect(loc.x, loc.y, size, size);
     if (selected) {
-        tileMenu();
+      tileMenu();
     }
   }
   void setCity() {
-    improvement = 1;
-    for (int i = 0; i < tilesX; i++) {
-      for (int j = 0; j < tilesY; j++) {
-        if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) {
-          tiles[i][j].owner = owner;
+    if (cityDist >= 6) {
+      improvement = 1;
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) { 
+            tiles[i][j].owner = owner;
+          }
         }
       }
     }
   }
+
   void tileMenu() {
     colorMode(HSB, 255, 255, 255);
     fillV(255);
@@ -88,6 +89,8 @@ class Tile {
               players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
               unitsBought++;
               occupied = true;
+              unit.x = owner;
+              unit.y = players[turnMod].units.size()-1;
             }
           }
         }
@@ -99,8 +102,10 @@ class Tile {
       }
     }
   }
+
   void update() {
     if (improvement == 0) {
+      img = grasslands;
       name = "Grassland";
       level = 0;
     } 
@@ -109,6 +114,7 @@ class Tile {
         level = 1;
       }
       if (improvement == 1) {
+        img = city;
         name = "City";
       }
     }
@@ -121,6 +127,23 @@ class Tile {
         selected = false;
       }
     }
+    if (occupied && owner != -1 && owner != unit.x && improvement == 1) {
+      owner = int(unit.x);
+    }
+    int cityDist_ = tilesX + tilesY;
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        if ((new PVector(i, j)) != tileLoc) {
+          if (tiles[i][j].improvement == 1) {
+            if (tileDist(tiles[i][j], tiles[int(tileLoc.x)][int(tileLoc.y)]) < cityDist_) {
+              cityDist_ = tileDist(tiles[i][j], tiles[int(tileLoc.x)][int(tileLoc.y)]);
+            }
+          }
+        }
+      }
+    }
+    cityDist = cityDist_;
+    println(tiles[1][1].cityDist);
   }
 }
 

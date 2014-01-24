@@ -33,7 +33,7 @@ void fillV(float f1, float f2, float f3) {
 void fillV(float f1, float f2) {
   color c_ = color(f1, f2);
   colorMode(HSB, 360, 100, 100, 100);
-  fill(color(hue(c_), saturation(c_), brightness(c_)*s.briScale));
+  fill(color(hue(c_), saturation(c_), brightness(c_)*s.briScale), alpha(c_));
 }
 
 void fillV(float f1) {
