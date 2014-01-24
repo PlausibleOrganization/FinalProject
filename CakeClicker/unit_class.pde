@@ -186,7 +186,12 @@ class Unit {
               }
               u.hp -= int(power);
               if (u.hp <= 0) {
+                tile2.occupied = false;
                 players[u.owner].units.remove(u.index);
+                if (unitId == 3) {
+                 tile1.occupied = false;
+                 players[owner].units.remove(index);
+                }
               }
             }
           }

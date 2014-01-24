@@ -87,10 +87,10 @@ void keyPressed() {
   }
   //soley for debugging
   if (key == 'q') {
-    players[0].cakes += 50;
+    players[0].cakes += 40000;
   }
   if (key == 'z') {
-    players[1].cakes += 50;
+    players[1].cakes += 40000;
   }
 }
 

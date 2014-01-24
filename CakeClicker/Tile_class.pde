@@ -38,11 +38,13 @@ class Tile {
     }
   }
   void setCity() {
-    improvement = 1;
-    for (int i = 0; i < tilesX; i++) {
-      for (int j = 0; j < tilesY; j++) {
-        if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) {
-          tiles[i][j].owner = owner;
+    if (cityDist <= 6) {
+      improvement = 1;
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) { 
+            tiles[i][j].owner = owner;
+          }
         }
       }
     }
@@ -125,9 +127,23 @@ class Tile {
         selected = false;
       }
     }
-    if (occupied && owner != -1 && owner != unit.x) {
+    if (occupied && owner != -1 && owner != unit.x && improvement == 1) {
       owner = int(unit.x);
     }
+    int cityDist_ = tilesX + tilesY;
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        if ((new PVector(i, j)) != tileLoc) {
+          if (tiles[i][j].improvement == 1) {
+            if (tileDist(tiles[i][j], tiles[int(tileLoc.x)][int(tileLoc.y)]) < cityDist_) {
+              cityDist_ = tileDist(tiles[i][j], tiles[int(tileLoc.x)][int(tileLoc.y)]);
+            }
+          }
+        }
+      }
+    }
+    cityDist = cityDist_;
+    println(tiles[1][1].cityDist);
   }
 }
 
