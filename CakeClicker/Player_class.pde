@@ -68,6 +68,7 @@ class Player {
         players[i].allowEnd = false;
       }
       turn++;
+      turnMod = turn % players.length;
     }
   }
 
