@@ -9,9 +9,7 @@ void pauseAndQuit() {
   fillV(0);
   textSize(25);
   text("Pause", width-100, height-167);
-  if (button(width-175, height-200, 150, 50)) {
-    gameMode = new PVector(2, 0);
-  }
+  gameMode = (button(width-175, height-200, 150, 50)) ? new PVector(2, 0) : gameMode;
   //quit gamemode button
   fillV(255);
   rect(width-175, height-125, 150, 100);

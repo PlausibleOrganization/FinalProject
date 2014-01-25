@@ -34,9 +34,6 @@ class StartMenu {
   }
   void update() {
     //if clicked, then start game
-    if (button(width/4, height/3, width/2, height/9)) {
-      gameMode = new PVector(1, 0);
-    }
+    gameMode = (button(width/4, height/3, width/2, height/9)) ? new PVector(1, 0): gameMode;
   }
 }
-
