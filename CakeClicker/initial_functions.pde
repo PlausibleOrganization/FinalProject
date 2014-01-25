@@ -17,6 +17,9 @@ void initialize() {
   for (int i = 0; i < unitData.length; i++) {
     unitData[i] = new UnitData(i);
   }
+  for (int i = 0; i < tileData.length; i++) {
+   tileData[i] = new TileData(i + 1); 
+  }
   //set turn to Player 1;
   turn = 0;
   //starting cities

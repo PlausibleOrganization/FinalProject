@@ -6,7 +6,7 @@ class cake {
 
   cake(float x, float y) {
     loc = new PVector(x, y);
-    vel = new PVector(0, random(5,10));
+    vel = new PVector(0, random(5, 10));
     d = 20;
     cake = loadImage("Cake.png");
   }
@@ -20,6 +20,7 @@ class cake {
   }
   void update() {
     loc.add(vel);
+    vel = (loc.y > displayHeight) ? new PVector(0, random(5, 10)) : vel;
     loc = (loc.y > displayHeight) ? new PVector(random(width), 0) : loc;
   }
 }

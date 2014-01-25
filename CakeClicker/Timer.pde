@@ -1,5 +1,5 @@
 class timer {
-  int newTime, oldTime, oldTurn, secspassed, firstTime;
+  int newTime, oldTime, oldTurn, secspassed, firstTime, oldTime2;
   boolean called;
 
   timer(int n) {
@@ -53,6 +53,20 @@ class timer {
     }
     String time = min+":"+secS;
     return time;
+  }
+
+  boolean cakeGain() {
+    newTime = millis();
+    if (turn == 0) {
+      newTime = millis() - firstTime;
+    }
+    if (newTime - oldTime2 >= 1000) {
+      oldTime2 = newTime;
+      return true;
+    } 
+    else {
+      return false;
+    }
   }
 }
 

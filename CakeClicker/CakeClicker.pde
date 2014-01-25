@@ -7,6 +7,7 @@ Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
 UnitData[] unitData = new UnitData[4];
+TileData[] tileData = new TileData[4];
 int turn;
 int turnMod;
 PauseMenu p;
@@ -15,6 +16,7 @@ StartMenu st;
 Instruct in;
 timer ti;
 float costGrowth = 1.25;
+int minCityDist = 6;
 
 void setup() {
   size(1000, 800);
