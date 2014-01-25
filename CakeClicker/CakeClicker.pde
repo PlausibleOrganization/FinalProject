@@ -15,7 +15,7 @@ Settings s;
 StartMenu st;
 Instruct in;
 timer ti;
-float costGrowth = 1.25;
+float costGrowth = 1.4;
 int minCityDist = 6;
 
 void setup() {
