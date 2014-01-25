@@ -14,9 +14,9 @@ class cake {
     vel.x += random(-1, 1)*noise(1);
     imageMode(CENTER);
     ellipse(loc.x, loc.y, d, d);
-    fill(0);
+    fillV(0);
     cake.resize(70, 0);
-    image(cake, loc.x, loc.y);
+    imageV(cake, loc.x, loc.y);
   }
   void update() {
     loc.add(vel);
