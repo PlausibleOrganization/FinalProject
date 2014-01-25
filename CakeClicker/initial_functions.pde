@@ -21,7 +21,7 @@ void initialize() {
    tileData[i] = new TileData(i + 1); 
   }
   //set turn to Player 1;
-  turn = 0;
+  turn = -1;
   //starting cities
   tiles[0][0].owner = 0;
   tiles[0][0].setCity();

@@ -23,7 +23,7 @@ class StartMenu {
     textSize(20);
     fillV(120, 100, 100, 70);
     strokeWeight(5);
-    stroke(240, 100, 100, 70);
+    stroke(240, 100, 100*s.briScale, 70);
     rect(width/4, height/3, width/2, height/9);
     fillV(240, 100, 100, 70);
     textAlign(CENTER);
