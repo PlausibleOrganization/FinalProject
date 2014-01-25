@@ -69,21 +69,29 @@ class Tile {
     if (owner == turnMod) {
       if (improvement == 1) {
         if (unitsBought < 1) {
-          textSize(15);
-          text("Purchase a unit:", width-170, 330);
-          imageMode(CORNER);
-          for (int i = 0; i <unitData.length; i++) {
-            rect(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
-            imageV(unitData[i].img, unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30);
-            textSize(10);
-            text(unitData[i].cost, unitData[i].menuLoc.x + 10, unitData[i].menuLoc.y + 45);
-            if (button(unitData[i].menuLoc.x, unitData[i].menuLoc.y, 30, 30) && players[turnMod].cakes >= unitData[i].cost && !occupied) {          
-              players[turnMod].cakes-=unitData[i].cost;
-              players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
-              unitsBought++;
-              occupied = true;
-              unit.x = owner;
-              unit.y = players[turnMod].units.size()-1;
+          if (occupied) {
+            textSize(25);
+            text("This tile \nis \noccupied.", width-170, 335);
+          } 
+          else {
+            textSize(15);
+            text("Purchase a unit:", width-170, 330);
+            imageMode(CORNER);
+            for (int i = 0; i <unitData.length; i++) {
+              unitData[i].update();
+              rect(unitData[i].menuLoc.x, unitData[i].menuLoc.y, unitData[i].imgSize, unitData[i].imgSize);
+              imageV(unitData[i].img, unitData[i].menuLoc.x, unitData[i].menuLoc.y, unitData[i].imgSize, unitData[i].imgSize);
+              textSize(10);
+              text(unitData[i].cost, unitData[i].menuLoc.x + unitData[i].imgSize + 10, unitData[i].menuLoc.y + unitData[i].imgSize/2);
+              if (button(unitData[i].menuLoc.x, unitData[i].menuLoc.y, unitData[i].imgSize, unitData[i].imgSize) && players[turnMod].cakes >= unitData[i].cost && !occupied) {
+                players[turnMod].purchases[i]++;
+                players[turnMod].cakes-=unitData[i].cost;
+                players[turnMod].units.add(new Unit(turnMod, i, int(tileLoc.x), int(tileLoc.y)));
+                unitsBought++;
+                occupied = true;
+                unit.x = owner;
+                unit.y = players[turnMod].units.size()-1;
+              }
             }
           }
         }
@@ -137,7 +145,6 @@ class Tile {
       }
     }
     cityDist = cityDist_;
-    println(tiles[1][1].cityDist);
   }
 }
 
