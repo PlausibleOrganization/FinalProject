@@ -15,10 +15,7 @@ class Player {
 
   void update() {
     c.update();
-    if (c.clicked) {
-      cakes++;
-      // mouseReleased = false;
-    }
+    cakes = c.clicked ? cakes + 1 : cakes;
   }
 
   void updateUnits() {
@@ -30,11 +27,13 @@ class Player {
 
   void display() {
     c.display();
-    if (id == 0) {
+    switch(id) {
+    case 0:
       fillV(0, 100, 100);
-    }
-    else if (id == 1) {
+      break; 
+    case 1:
       fillV(240, 100, 100);
+      break;
     }
     //player n's turn
     textSize(25);
@@ -79,3 +78,4 @@ class Player {
     }
   }
 }
+

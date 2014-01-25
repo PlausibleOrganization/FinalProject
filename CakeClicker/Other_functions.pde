@@ -1,20 +1,10 @@
 //button, returns true if clicked within rectangle
 boolean button(float x, float y, float w, float h) {
-  if (mousePressed && mouseX > x && mouseX < x + w&& mouseY > y && mouseY < y + h) {
-    return true;
-  } 
-  else {
-    return false;
-  }
+  return (mousePressed && mouseX > x && mouseX < x + w&& mouseY > y && mouseY < y + h) ? true : false;
 }
 
 boolean button2(float x, float y, float w, float h) {
-  if (mouseX > x && mouseX < x + w&& mouseY > y && mouseY < y + h) {
-    return true;
-  } 
-  else {
-    return false;
-  }
+  return (mouseX > x && mouseX < x + w&& mouseY > y && mouseY < y + h) ? true : false;
 }
 
 //alternative to fillV(), scales brightness by briScale
@@ -82,6 +72,22 @@ void deselector() {
     for (int j = players[i].units.size() - 1; j > -1; j--) {
       players[i].units.get(j).selected = false;
     }
+  }
+}
+
+void refreshTiles() {
+  for (int i = 0; i < tilesX; i++) {
+    for (int j = 0; j < tilesY; j++) {
+      tiles[i][j].update();
+      tiles[i][j].display();
+    }
+  }
+}
+
+void refreshUnits() {
+  for (int i = 0; i < players.length; i++) {
+    players[i].updateUnits();
+    players[i].displayUnits();
   }
 }
 

@@ -20,9 +20,7 @@ class cake {
   }
   void update() {
     loc.add(vel);
-    if (loc.y > displayHeight) {
-      loc = new PVector(random(width), 0);
-    }
+    loc = (loc.y > displayHeight) ? new PVector(random(width), 0) : loc;
   }
 }
 

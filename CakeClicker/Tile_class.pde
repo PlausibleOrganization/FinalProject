@@ -38,16 +38,7 @@ class Tile {
     }
   }
   void setCity() {
-    if (cityDist >= 6) {
-      improvement = 1;
-      for (int i = 0; i < tilesX; i++) {
-        for (int j = 0; j < tilesY; j++) {
-          if (tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1) { 
-            tiles[i][j].owner = owner;
-          }
-        }
-      }
-    }
+    improvement = cityDist >= 6 ? 1 : 0;
   }
 
   void tileMenu() {
@@ -59,11 +50,13 @@ class Tile {
     fillV(0);
     textSize(10);
     textAlign(CORNER);
-    if (owner > -1) {
+    switch (owner) {
+    case -1:
       text("Owned by Player "+(owner+1), width-170, 265);
-    } 
-    else {
+      break;
+    default:
       text("Unclaimed territory", width-170, 265);
+      break;
     }
     text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 280);
     text(name, width-170, 295);
@@ -104,20 +97,23 @@ class Tile {
   }
 
   void update() {
-    if (improvement == 0) {
+    switch (improvement) {
+    case 0:
       img = grasslands;
       name = "Grassland";
       level = 0;
-    } 
-    else {
-      if (level == 0) {
-        level = 1;
+      break;
+    case 1:
+      img = city;
+      name = "City";
+      level = level == 0 ? 1 : level;
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1 ? owner : tiles[i][j].owner;
+        }
       }
-      if (improvement == 1) {
-        img = city;
-        name = "City";
-      }
-    }
+      break;
+    }  
     if (button(loc.x, loc.y, tileSize, tileSize) &&!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
       deselector();
       selected = true;
@@ -127,9 +123,7 @@ class Tile {
         selected = false;
       }
     }
-    if (occupied && owner != -1 && owner != unit.x && improvement == 1) {
-      owner = int(unit.x);
-    }
+    owner = (occupied && owner != -1 && owner != unit.x && improvement == 1) ? int(unit.x) : owner;
     int cityDist_ = tilesX + tilesY;
     for (int i = 0; i < tilesX; i++) {
       for (int j = 0; j < tilesY; j++) {

@@ -19,9 +19,7 @@ class PauseMenu {
     fillV(120, 100, 100);
     text("Resume", width/2, height*3/18);
     //if mouse clicked with rectangle, resume game
-    if (button(width/4, height/9, width/2, height/9)) {
-      gameMode = new PVector(1, turn);
-    }
+    gameMode = (button(width/4, height/9, width/2, height/9)) ? new PVector(1, turn) : gameMode;
   }
   void settingsButton() {
     rectMode(CORNER);
@@ -36,9 +34,7 @@ class PauseMenu {
     fillV(0, 100, 100);
     text("Settings", width/2, height*7/18);
     //if mouse clicked with rectangle, open shop
-    if (button(width/4, height/3, width/2, height/9)) {
-      gameMode = new PVector(2, 1);
-    }
+    gameMode = (button(width/4, height/3, width/2, height/9)) ? new PVector(2, 1) : gameMode;
   }
 }
 
@@ -60,17 +56,5 @@ class Settings {
       p.set();
     }
   }
-
-  /*void bright() {
-    //increases brightness
-    fillV(255);
-    rect(width/4 - 75, 100, 200, 75);
-    fillV(0);
-    textSize(25);
-    text("Pause", width-100, height-167);
-    if (button(width/4 - 75, 100, 200, 75)) {
-      briScale+=.1;
-    }
-  }*/
 }
 

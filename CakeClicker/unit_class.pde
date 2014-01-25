@@ -21,31 +21,32 @@ class Unit {
     loc = new PVector(x*tileSize, y*tileSize);
     moved = 0;
     index = -1;
-    if (unitId == 0) {
+    switch(unitId) {
+    case 0:
       name = "Soccer Mom";
       img = soccerMom;
       hp = 100;
       atk = 75;
       def = 30;
       range = 3;
-    } 
-    else if (unitId == 1) {
+      break;
+    case 1:
       name = "Soccer Mom Cavalry";
       img = van;
       hp = 100;
       atk = 60;
       def = 30;
       range = 6;
-    }
-    else if (unitId == 2) {
+      break; 
+    case 2:
       name = "Farmer";
       img = farmer;
       hp = 200;
       atk = 50;
       def = 50;
       range = 2;
-    }
-    else if (unitId == 3) {
+      break; 
+    case 3:
       name = "Rocket";
       img = rocket;
       hp = 1;
@@ -72,13 +73,15 @@ class Unit {
   void displayNumber() {
     textAlign(CENTER);
     textSize(imgSize);
-    if (owner == 0) {
+    switch (owner) {
+    case 0:
       colorMode(RGB, 255, 255, 255);
       fillV(255, 0, 0);
-    } 
-    else if (owner == 1) {
+      break;
+    case 1:
       colorMode(RGB, 255, 255, 255);
       fillV(0, 0, 255);
+      break;
     }
     text(owner+1, loc.x+20, loc.y+30);
   }
@@ -111,10 +114,8 @@ class Unit {
         fillV(0);
         text("MOVE", width-100, 395);
       }
-      if (button(width-170, 370, 140, 36) && allowMove) {
-        move = !move;
-        allowMove = false;
-      }
+      move = (button(width-170, 370, 140, 36) && allowMove) ? !move : move;
+      allowMove = (button(width-170, 370, 140, 36) && allowMove) ? false : allowMove;
       if (move) {
         move();
       }
@@ -181,16 +182,15 @@ class Unit {
             if (owner != u.owner) {
               float power = atk - u.def;
               power *= random(.75, 1.25);
-              if (tile2.improvement == 1) {
-                power /= 3;
-              }
+              power = (tile2.improvement == 1) ? power / 3: power;
               u.hp -= int(power);
               if (u.hp <= 0) {
                 tile2.occupied = false;
                 players[u.owner].units.remove(u.index);
                 if (unitId == 3) {
-                 tile1.occupied = false;
-                 players[owner].units.remove(index);
+                  tile1.occupied = false;
+                  players[owner].units.remove(index);
+                  refreshUnits();
                 }
               }
             }
@@ -205,11 +205,7 @@ class Unit {
       deselector();
       selected = true;
     }
-    if (selected) {
-      if (button(width - 50, 250, 20, 20)) {
-        selected = false;
-      }
-    }
+    select = (selected && button(width - 50, 250, 20, 20)) ? false : select;
   }
 }
 
@@ -221,25 +217,26 @@ class UnitData {
 
   UnitData(int unitId_) {
     unitId = unitId_;
-    if (unitId == 0) {
+    switch (unitId) {
+    case 0:
       name = "Soccer Mom";
       img = soccerMom;
       cost = 50;
       menuLoc = new PVector(width-170, 340);
-    } 
-    else if (unitId == 1) {
+      break;
+    case 1:
       name = "Soccer Mom Cavalry";
       img = van;
       cost = 150;
       menuLoc = new PVector(width-120, 340);
-    }
-    else if (unitId == 2) {
+      break;
+    case 2:
       name = "Farmer";
       img = farmer;
       cost = 500;
       menuLoc = new PVector(width-170, 390);
-    }
-    else if (unitId == 3) {
+      break;
+    case 3:
       name = "Rocket";
       img = rocket;
       cost = 40000;

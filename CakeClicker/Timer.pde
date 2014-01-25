@@ -12,15 +12,17 @@ class timer {
     if (turn != oldTurn) {
       endTurn();
     }
-    if (!called) {
-      firstTime = millis();
-      called = true;
-    }
-    if (turn == 0) {
+    switch (turn) {
+    case 0:
+      if (!called) {
+        firstTime = millis();
+        called = true;
+      }
       newTime = millis() - firstTime;
-    } 
-    else {
+      break;
+    default:
       newTime = millis();
+      break;
     }
     if (newTime - oldTime >= secspassed) {
       oldTime = newTime;
@@ -35,11 +37,11 @@ class timer {
     for (int i = players[turnMod].units.size()-1; i > -1; i--) {
       players[turnMod].units.get(i).moved = 0;
     }
-      for (int i = 0; i < tilesX; i++) {
-    for (int j = 0; j < tilesY; j++) {
-      tiles[i][j].unitsBought = 0;
+    for (int i = 0; i < tilesX; i++) {
+      for (int j = 0; j < tilesY; j++) {
+        tiles[i][j].unitsBought = 0;
+      }
     }
-  }
   }
   String viewTime() {
     int t = secspassed- (newTime - oldTime); 
