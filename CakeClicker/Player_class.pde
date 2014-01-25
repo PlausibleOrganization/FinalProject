@@ -5,12 +5,16 @@ class Player {
   int id;
   boolean allowEnd;
   ArrayList<Unit> units = new ArrayList<Unit>();
+  int[] purchases = new int[4];
 
   Player(int id_) {
     id = id_;
     cakes = 0;
     c = new Clicker();
     allowEnd = true;
+    for (int i = 0; i < purchases.length; i++) {
+     purchases[i] = 0; 
+    }
   }
 
   void update() {

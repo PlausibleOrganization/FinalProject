@@ -205,17 +205,18 @@ class Unit {
       deselector();
       selected = true;
     }
-    select = (selected && button(width - 50, 250, 20, 20)) ? false : select;
+    selected = (selected && button(width - 50, 250, 20, 20)) ? false : selected;
   }
 }
 
 class UnitData {
   String name;
-  int unitId, cost;
+  int unitId, cost, imgSize;
   PImage img;
   PVector menuLoc;
 
   UnitData(int unitId_) {
+    imgSize = 20;
     unitId = unitId_;
     switch (unitId) {
     case 0:
@@ -228,20 +229,36 @@ class UnitData {
       name = "Soccer Mom Cavalry";
       img = van;
       cost = 150;
-      menuLoc = new PVector(width-120, 340);
+      menuLoc = new PVector(width-170, 370);
       break;
     case 2:
       name = "Farmer";
       img = farmer;
       cost = 500;
-      menuLoc = new PVector(width-170, 390);
+      menuLoc = new PVector(width-170, 400);
       break;
     case 3:
       name = "Rocket";
       img = rocket;
       cost = 40000;
-      menuLoc = new PVector(width-120, 390);
+      menuLoc = new PVector(width-170, 430);
     }
   }
-}
 
+  void update() {
+    switch (unitId) {
+    case 0:
+      cost = 50;
+      break;
+    case 1:
+      cost = 150;
+      break;
+    case 2:
+      cost = 500;
+      break;
+    case 3:
+      cost = 40000;
+    }
+    cost = int(float(cost) * pow(costGrowth, players[turnMod].purchases[unitId]));
+  }
+}

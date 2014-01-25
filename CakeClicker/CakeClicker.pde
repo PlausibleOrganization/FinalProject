@@ -14,6 +14,7 @@ Settings s;
 StartMenu st;
 Instruct in;
 timer ti;
+float costGrowth = 1.25;
 
 void setup() {
   size(1000, 800);
