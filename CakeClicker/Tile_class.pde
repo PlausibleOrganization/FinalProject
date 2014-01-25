@@ -52,10 +52,10 @@ class Tile {
     textAlign(CORNER);
     switch (owner) {
     case -1:
-      text("Owned by Player "+(owner+1), width-170, 265);
+      text("Unclaimed territory", width-170, 265);
       break;
     default:
-      text("Unclaimed territory", width-170, 265);
+      text("Owned by Player "+(owner+1), width-170, 265);
       break;
     }
     text("Location: "+int(tileLoc.x)+" , "+int(tileLoc.y), width-170, 280);
@@ -72,6 +72,7 @@ class Tile {
         text("Purchase a unit:", width-170, 330);
         imageMode(CORNER);
         for (int i = 0; i <unitData.length; i++) {
+          tileData[i].update();
           rect(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
           imageV(tileData[i].img, tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
           if (i == 0 && cityDist < minCityDist) {
@@ -86,6 +87,10 @@ class Tile {
                 players[turnMod].cakes-=tileData[i].cost;
                 improvement = tileData[i].improvement;
                 img = tileData[i].img;
+                deselector();
+                if (i == 0) {
+                  players[turnMod].citiesPurchased++;
+                }
               }
             }
           }
@@ -116,6 +121,7 @@ class Tile {
                 occupied = true;
                 unit.x = owner;
                 unit.y = players[turnMod].units.size()-1;
+                deselector();
               }
             }
           }
@@ -216,5 +222,10 @@ class TileData {
       menuLoc = new PVector(width-170, 430);
     }
   }
-}
 
+  void update() {
+    if (improvement == 1) {
+      cost = int(float(500) * pow(cityCostGrowth, players[turnMod].citiesPurchased));
+    }
+  }
+}
