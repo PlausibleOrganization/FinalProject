@@ -74,13 +74,19 @@ class Tile {
         for (int i = 0; i <unitData.length; i++) {
           rect(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
           imageV(tileData[i].img, tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
-          textSize(10);
-          text(tileData[i].cost, tileData[i].menuLoc.x + tileData[i].imgSize + 10, tileData[i].menuLoc.y + tileData[i].imgSize/2);
-          if (button(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize) && players[turnMod].cakes >= tileData[i].cost) {
-            if ((tileData[i].improvement == 1 && cityDist >= minCityDist) || tileData[i].improvement != 1) {
-              players[turnMod].cakes-=tileData[i].cost;
-              improvement = tileData[i].improvement;
-              img = tileData[i].img;
+          if (i == 0 && cityDist < minCityDist) {
+            textSize(8);
+            text("YOU MAY NOT SETTLE HERE", tileData[i].menuLoc.x + tileData[i].imgSize + 10, tileData[i].menuLoc.y + tileData[i].imgSize/2);
+          } 
+          else {
+            textSize(8);
+            text(tileData[i].cost+"\nCPS: "+tileData[i].cps, tileData[i].menuLoc.x + tileData[i].imgSize + 10, tileData[i].menuLoc.y + tileData[i].imgSize/2 - 5);
+            if (button(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize) && players[turnMod].cakes >= tileData[i].cost) {
+              if ((tileData[i].improvement == 1 && cityDist >= minCityDist) || tileData[i].improvement != 1) {
+                players[turnMod].cakes-=tileData[i].cost;
+                improvement = tileData[i].improvement;
+                img = tileData[i].img;
+              }
             }
           }
         }
@@ -97,6 +103,7 @@ class Tile {
             imageMode(CORNER);
             for (int i = 0; i <unitData.length; i++) {
               unitData[i].update();
+              textSize(10);
               rect(unitData[i].menuLoc.x, unitData[i].menuLoc.y, unitData[i].imgSize, unitData[i].imgSize);
               imageV(unitData[i].img, unitData[i].menuLoc.x, unitData[i].menuLoc.y, unitData[i].imgSize, unitData[i].imgSize);
               textSize(10);
@@ -113,15 +120,13 @@ class Tile {
             }
           }
         }
-
-        else {
-          textSize(25);
-          text("You have \nalready \npurchased \na unit.", width-170, 335);
-        }
+      }
+      else if (improvement == 1) {
+        textSize(25);
+        text("You have \nalready \npurchased \na unit.", width-170, 335);
       }
     }
   }
-
   void update() {
     switch (improvement) {
     case 0:
@@ -132,13 +137,22 @@ class Tile {
     case 1:
       img = city;
       name = "City";
-      level = level == 0 ? 1 : level;
+      level = (level == 0) ? 1 : level;
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
           tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1 ? owner : tiles[i][j].owner;
         }
       }
       break;
+    case 2:
+      name = "Bakery";
+      level = (level == 0) ? 1 : level;
+    case 3:
+      name = "Space Machine";
+      level = (level == 0) ? 1 : level;
+    case 4:
+      name = "WITCHCRAFT MAGIC";
+      level = (level == 0) ? 1 : level;
     }  
     if (button(loc.x, loc.y, tileSize, tileSize) &&!(button(loc.x, loc.y, tileSize/2, tileSize/2) && occupied)) {
       deselector();
@@ -167,6 +181,7 @@ class Tile {
 }
 
 class TileData {
+  int cps;
   String name;
   int improvement, cost, imgSize;
   PImage img;
@@ -177,23 +192,27 @@ class TileData {
     improvement = improvement_;
     switch (improvement) {
     case 1:
+      cps = 1;
       img = city;
-      cost = 50;
+      cost = 500;
       menuLoc = new PVector(width-170, 340);
       break;
     case 2:
+      cps = 10;
       img = bakery;
-      cost = 150;
+      cost = 250;
       menuLoc = new PVector(width-170, 370);
       break;
     case 3:
+      cps = 100;
       img = machine;
-      cost = 500;
+      cost = 4000;
       menuLoc = new PVector(width-170, 400);
       break;
     case 4:
+      cps = 1000;
       img = witch;
-      cost = 40000;
+      cost = 100000;
       menuLoc = new PVector(width-170, 430);
     }
   }

@@ -24,9 +24,7 @@ class Player {
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
           if (tiles[i][j].owner == id) {
-            if (tiles[i][j].improvement == 1) {
-              cps++;
-            }
+            cps = (tiles[i][j].improvement == 0) ? cps : cps + tileData[tiles[i][j].improvement-1].cps;
           }
         }
       }
