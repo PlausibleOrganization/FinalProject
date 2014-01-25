@@ -143,10 +143,10 @@ class Tile {
     case 1:
       img = city;
       name = "City";
-      level = (level == 0) ? 1 : level;
+      level = (level == 0) ? cityFirstLevel : level;
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
-          tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= 1 ? owner : tiles[i][j].owner;
+          tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= level ? owner : tiles[i][j].owner;
         }
       }
       break;

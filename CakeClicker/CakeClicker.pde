@@ -18,6 +18,7 @@ timer ti;
 float costGrowth = 1.4;
 float cityCostGrowth = 1.75;
 int minCityDist = 0;
+int cityFirstLevel = 2;
 
 void setup() {
   size(1000, 800);
