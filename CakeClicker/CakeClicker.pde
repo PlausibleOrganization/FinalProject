@@ -33,12 +33,12 @@ void setup() {
 }
 
 void draw() {
-  //turnMod is what player's turn it is
+  //turnMod determines whose turn it is
+  turnMod = int(gameMode.y % players.length);
   background(0);
   //starting screen
   switch(int(gameMode.x)) {
   case 0:
-    turnMod = int(gameMode.y % players.length);
     st.display();
     st.update();
     in.display();
@@ -48,11 +48,7 @@ void draw() {
     turn = (turn == -1) ? 0 : turn;
     gameMode.y = turn;
     ti.time();
-    pauseAndQuit();
-    refreshTiles();
-    players[turnMod].display();
-    players[turnMod].update();
-    refreshUnits();
+    displayGame();
     break;
   case 2:
     //main pause menu
@@ -67,6 +63,8 @@ void draw() {
     break;
   case 3:
     in.instructions();
+  case 4:
+    break;
   }
 }
 

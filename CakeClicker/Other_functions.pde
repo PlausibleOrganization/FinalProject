@@ -91,3 +91,10 @@ void refreshUnits() {
   }
 }
 
+void displayGame() {
+     pauseAndQuit();
+    refreshTiles();
+    players[turnMod].display();
+    players[turnMod].update();
+    refreshUnits(); 
+}

@@ -3,7 +3,7 @@ class Player {
   float cps;
   Clicker c;
   int id, citiesPurchased;
-  boolean allowEnd;
+  boolean allowEnd, ownCities;
   ArrayList<Unit> units = new ArrayList<Unit>();
   int[] purchases = new int[4];
   Player(int id_) {
@@ -15,24 +15,26 @@ class Player {
       purchases[i] = 0;
     }
     citiesPurchased = 0;
+    ownCities = true;
   }
 
   void update() {
     c.update();
     if (ti.cakeGain()) {
       cps = 0;
+      ownCities = false;
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
           if (tiles[i][j].owner == id) {
             cps = (tiles[i][j].improvement == 0) ? cps : cps + tileData[tiles[i][j].improvement-1].cps;
+            ownCities = (tiles[i][j].improvement == 1) ? true : ownCities;
           }
         }
       }
       cakes += cps;
+      gameMode = ownCities ? gameMode : new PVector(4, turnMod);
     }
     cakes = c.clicked ? cakes + 1 : cakes;
-    if (ti.cakeGain()) {
-    }
   }
 
   void updateUnits() {

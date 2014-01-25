@@ -4,7 +4,7 @@ class Instruct {
   }
 
   void display() {
-    //shows rules tab    
+    //shows instructions/rules tab    
     colorMode(HSB, 360, 100, 100);
     textSize(20);
     fillV(120, 100, 100, 70);
