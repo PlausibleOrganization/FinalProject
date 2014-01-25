@@ -16,7 +16,8 @@ StartMenu st;
 Instruct in;
 timer ti;
 float costGrowth = 1.4;
-int minCityDist = 6;
+float cityCostGrowth = 1.75;
+int minCityDist = 0;
 
 void setup() {
   size(1000, 800);
