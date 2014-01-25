@@ -13,13 +13,28 @@ class Player {
     c = new Clicker();
     allowEnd = true;
     for (int i = 0; i < purchases.length; i++) {
-     purchases[i] = 0; 
+      purchases[i] = 0;
     }
   }
 
   void update() {
     c.update();
+    if (ti.cakeGain()) {
+      cps = 0;
+      for (int i = 0; i < tilesX; i++) {
+        for (int j = 0; j < tilesY; j++) {
+          if (tiles[i][j].owner == id) {
+            if (tiles[i][j].improvement == 1) {
+              cps++;
+            }
+          }
+        }
+      }
+      cakes += cps;
+    }
     cakes = c.clicked ? cakes + 1 : cakes;
+    if (ti.cakeGain()) {
+    }
   }
 
   void updateUnits() {

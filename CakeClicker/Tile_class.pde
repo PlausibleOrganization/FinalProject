@@ -38,7 +38,7 @@ class Tile {
     }
   }
   void setCity() {
-    improvement = cityDist >= 6 ? 1 : 0;
+    improvement = cityDist >= minCityDist ? 1 : 0;
   }
 
   void tileMenu() {
@@ -67,7 +67,25 @@ class Tile {
       text("Undeveloped tile", width-170, 310);
     }
     if (owner == turnMod) {
-      if (improvement == 1) {
+      if (improvement == 0) {
+        textSize(15);
+        text("Purchase a unit:", width-170, 330);
+        imageMode(CORNER);
+        for (int i = 0; i <unitData.length; i++) {
+          rect(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
+          imageV(tileData[i].img, tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize);
+          textSize(10);
+          text(tileData[i].cost, tileData[i].menuLoc.x + tileData[i].imgSize + 10, tileData[i].menuLoc.y + tileData[i].imgSize/2);
+          if (button(tileData[i].menuLoc.x, tileData[i].menuLoc.y, tileData[i].imgSize, tileData[i].imgSize) && players[turnMod].cakes >= tileData[i].cost) {
+            if ((tileData[i].improvement == 1 && cityDist >= minCityDist) || tileData[i].improvement != 1) {
+              players[turnMod].cakes-=tileData[i].cost;
+              improvement = tileData[i].improvement;
+              img = tileData[i].img;
+            }
+          }
+        }
+      }
+      else if (improvement == 1) {
         if (unitsBought < 1) {
           if (occupied) {
             textSize(25);
@@ -145,6 +163,39 @@ class Tile {
       }
     }
     cityDist = cityDist_;
+  }
+}
+
+class TileData {
+  String name;
+  int improvement, cost, imgSize;
+  PImage img;
+  PVector menuLoc;
+
+  TileData(int improvement_) {
+    imgSize = 20;
+    improvement = improvement_;
+    switch (improvement) {
+    case 1:
+      img = city;
+      cost = 50;
+      menuLoc = new PVector(width-170, 340);
+      break;
+    case 2:
+      img = bakery;
+      cost = 150;
+      menuLoc = new PVector(width-170, 370);
+      break;
+    case 3:
+      img = machine;
+      cost = 500;
+      menuLoc = new PVector(width-170, 400);
+      break;
+    case 4:
+      img = witch;
+      cost = 40000;
+      menuLoc = new PVector(width-170, 430);
+    }
   }
 }
 
