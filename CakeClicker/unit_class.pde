@@ -168,7 +168,13 @@ class Unit {
     }
     //display all units belonging to all players
     imageMode(CORNER);
-    refreshUnits();
+    for (int i = 0; i < players.length; i++) {
+      for (int j = players[i].units.size()-1; j > -1; j--) {
+        Unit unit = players[i].units.get(j);
+        unit.displayImage();
+      }
+    }
+
     imageV(img, loc.x, loc.y, imgSize, imgSize);
     //display movement instruction
     textAlign(CENTER);
@@ -209,7 +215,12 @@ class Unit {
             //unit u is the unit in the target tile
             Unit u = players[int(tile2.unit.x)].units.get(int(tile2.unit.y));
             //update all units
-            refreshUnits();
+            for (int i = 0; i < players.length; i++) {
+              for (int j = players[i].units.size()-1; j > -1; j--) {
+                players[i].units.get(j).update(j);
+              }
+            }
+
             //if they don't have the same owner
             if (owner != u.owner) {
               //set power to the attacker's atk minus the defender's def

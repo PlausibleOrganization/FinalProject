@@ -41,8 +41,8 @@ class Player {
       }
       //add cps to cakes
       cakes += cps;
-      //if no cities are owner, game over
-      gameMode = ownCities ? gameMode : new PVector(4, turnMod);
+      //if no cities are owned, game over
+      gameMode = (ownCities && turn > -1) ? gameMode : new PVector(4, turnMod);
     }
   }
 
