@@ -33,7 +33,6 @@ void setup() {
 }
 
 void draw() {
-  println(gameMode);
   //turnMod determines whose turn it is
   turnMod = int(gameMode.y % players.length);
   background(0);
