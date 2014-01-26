@@ -1,11 +1,12 @@
 class timer {
-  int newTime, oldTime, oldTurn, secspassed, firstTime, oldTime2, pauseTime;
+  int newTime, oldTime, oldTurn, secspassed, firstTime, oldTime2, pauseTime, thisPause;
   boolean called;
 
   timer(int n) {
     secspassed = n;
     oldTurn = 0;
     pauseTime = 0;
+    thisPause = 0;
     called = false;
   }
 
@@ -30,6 +31,8 @@ class timer {
         break;
       } 
       //calculate newTime
+      pauseTime += thisPause;
+      thisPause = 0;
       newTime = millis() - firstTime - pauseTime;
       //if it has been more than secspassed since the last new turn, then new turn
       if (newTime - oldTime >= secspassed) {
@@ -41,8 +44,8 @@ class timer {
       }
       break;
     default:
-    //calculate the length of time paused
-      pauseTime = millis() - newTime - firstTime;
+      //calculate the length of time paused
+      thisPause = millis() - newTime - firstTime;
       break;
     }
     println(pauseTime);
