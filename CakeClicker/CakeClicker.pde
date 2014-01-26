@@ -65,6 +65,7 @@ void draw() {
   case 3:
     //the intructions and rules
     in.instructions();
+    break;
   case 4:
     //the lose screen
     lose();
