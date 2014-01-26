@@ -49,6 +49,7 @@ void imageV(PImage img, float x, float y, float w, float h) {
   image(img, x, y, w, h);
 }
 
+//distance between tiles
 int tileDist(Tile a, Tile b) {
   PVector dist = new PVector();
   dist.x = abs(a.tileLoc.x - b.tileLoc.x);
@@ -57,11 +58,7 @@ int tileDist(Tile a, Tile b) {
   return d;
 }
 
-//PVector mouseTile() {
-//  PVector p = new PVector(int(mouseX)/tileSize, int(mouseY)/tileSize); 
-//  return p;
-//}
-
+//deselects all tiles and units
 void deselector() {
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
@@ -75,6 +72,7 @@ void deselector() {
   }
 }
 
+//display and update all tiles
 void refreshTiles() {
   for (int i = 0; i < tilesX; i++) {
     for (int j = 0; j < tilesY; j++) {
@@ -84,6 +82,7 @@ void refreshTiles() {
   }
 }
 
+//display and update all units
 void refreshUnits() {
   for (int i = 0; i < players.length; i++) {
     players[i].updateUnits();
@@ -91,10 +90,31 @@ void refreshUnits() {
   }
 }
 
+//displays current game
 void displayGame() {
-     pauseAndQuit();
-    refreshTiles();
-    players[turnMod].display();
-    players[turnMod].update();
-    refreshUnits(); 
+  //displays ui buttons
+  pauseAndQuit();
+  //updates and displays all the players and tiles and units
+  refreshTiles();
+  players[turnMod].display();
+  players[turnMod].update();
+  refreshUnits();
+}
+
+//displays pretty lose screen
+void lose() {
+  colorMode(HSB, random(360), 100, 100);
+  background(random(360), 100, 100);
+  textSize(75);
+  textAlign(CENTER);
+  fill(random(360), 100, 100);
+  switch (int(gameMode.y)) {
+    //whoever lost is displayed as 
+  case 0:
+    text("PLAYER 1 IZ LOZER lOL", width/2, height/2);
+    break;
+  case 1:
+    text("PLAYER 1 IZ LOZER lOL", width/2, height/2);
+    break;
+  }
 }

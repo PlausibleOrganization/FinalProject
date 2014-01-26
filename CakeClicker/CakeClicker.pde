@@ -36,34 +36,37 @@ void draw() {
   //turnMod determines whose turn it is
   turnMod = int(gameMode.y % players.length);
   background(0);
-  //starting screen
+  //what interfaces are displayed varies based on what gameMode.x is
   switch(int(gameMode.x)) {
+    //starting screen, display start menu
   case 0:
     st.display();
     st.update();
     in.display();
     in.update();
     break;
+    //the game itself
   case 1:
     turn = (turn == -1) ? 0 : turn;
     gameMode.y = turn;
+    //update timer, display the game
     ti.time();
     displayGame();
     break;
   case 2:
     //main pause menu
     if (gameMode.y == 0) {
+      //pause menu buttons
       p.resumeButton();
       p.instButton();
     } 
-    //settings menu
-    else if (gameMode.y == 1) {
-      s.display();
-    }
     break;
   case 3:
+    //the intructions and rules
     in.instructions();
   case 4:
+    //the lose screen
+    lose();
     break;
   }
 }
@@ -81,16 +84,16 @@ void keyPressed() {
     gameMode = new PVector(2, 0);
   }
   //soley for debugging
-  if (key == 'q') {
-    players[0].cakes += 40000;
-  }
-  if (key == 'z') {
-    players[1].cakes += 40000;
-  }
+  //  if (key == 'q') {
+  //    players[0].cakes += 40000;
+  //  }
+  //  if (key == 'z') {
+  //    players[1].cakes += 40000;
+  //  }
 }
 
 void mouseReleased() {
-  //limtis cake clicks and turn ending to one mouse click per event
+  //limits cake clicks and turn ending to one mouse click per event
   for (int i = 0; i < players.length; i++) {
     players[i].c.allowRun = true;
     players[i].allowEnd = true;
