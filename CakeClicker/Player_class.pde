@@ -6,6 +6,7 @@ class Player {
   boolean allowEnd, ownCities;
   ArrayList<Unit> units = new ArrayList<Unit>();
   int[] purchases = new int[4];
+  
   Player(int id_) {
     id = id_;
     cakes = 0;
@@ -19,8 +20,11 @@ class Player {
   }
 
   void update() {
+    //update clicker
     c.update();
+    //once a second, run
     if (ti.cakeGain()) {
+      //find total cps, see if they have any cities
       cps = 0;
       ownCities = false;
       for (int i = 0; i < tilesX; i++) {
@@ -31,13 +35,17 @@ class Player {
           }
         }
       }
+      //add cps to cakes
       cakes += cps;
+      //if no cities are owner, game over
       gameMode = ownCities ? gameMode : new PVector(4, turnMod);
     }
+    //if clicked, add 1 cake
     cakes = c.clicked ? cakes + 1 : cakes;
   }
 
   void updateUnits() {
+    //update all units owner by player
     for (int i = units.size() - 1; i > -1; i--) {
       Unit unit = units.get(i);
       unit.update(i);
@@ -45,7 +53,9 @@ class Player {
   }
 
   void display() {
+    //display clicker
     c.display();
+    //fill player n's turn
     switch(id) {
     case 0:
       fillV(0, 100, 100);
@@ -76,21 +86,25 @@ class Player {
     fillV(0);
     textSize(25);
     text("End turn", width-100, height-255);
+    //set unitsBought to 0 for all tiles
     if (button(width-175, height-300, 150, 75) && allowEnd) {
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
           tiles[i][j].unitsBought = 0;
         }
       }
+      //don't allow turn to end if mousePressed
       for (int i = 0; i < players.length; i++) {
         players[i].allowEnd = false;
       }
+      //calculate new turn and turnMod
       turn++;
       turnMod = turn % players.length;
     }
   }
 
   void displayUnits() {
+    //display all units ownerd by player
     for (int i = units.size() - 1; i > -1; i--) {
       Unit unit = units.get(i);
       unit.display();
