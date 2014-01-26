@@ -56,9 +56,9 @@ class timer {
   
   //return the time left in the turn in string
   String viewTime() {
-    int t = secspassed- (newTime - oldTime); 
-    int min = (t/secspassed)/1000;
-    int sec = (t%secspassed)/1000;
+    int t = secspassed - (newTime - oldTime); 
+    int min = (t/60000);
+    int sec = (t%60000)/1000;
     String secS = str(sec);
     if (secS.length() == 1) {
       secS = "0"+secS;

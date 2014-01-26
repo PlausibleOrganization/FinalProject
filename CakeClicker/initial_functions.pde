@@ -30,7 +30,7 @@ void initialize() {
   //construct menus
   p = new PauseMenu();
   s = new Settings();
-  ti = new timer(60000);
+  ti = new timer(90000);
   //controls initial deselector
   deselectorRan = false;
 }
