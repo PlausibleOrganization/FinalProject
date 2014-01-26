@@ -14,7 +14,7 @@ class PauseMenu {
     //rectangle/text
     fillV(0, 100, 100);
     strokeWeight(5);
-    stroke(120, 100, 100);
+    stroke(120, 100, 100*s.briScale);
     rect(width/4, height/9, width/2, height/9);
     fillV(120, 100, 100);
     text("Resume", width/2, height*3/18);
@@ -29,7 +29,7 @@ class PauseMenu {
     //rectangle/text
     fillV(120, 100, 100);
     strokeWeight(5);
-    stroke(240, 100, 100);
+    stroke(240, 100, 100*s.briScale);
     rect(width/4, height/3, width/2, height/9);
     fillV(0, 100, 100);
     text("Instructions", width/2, height*7/18);
@@ -47,7 +47,7 @@ class Settings {
     //return to menu button
     fillV(120, 100, 100);
     strokeWeight(5);
-    stroke(240, 100, 100);
+    stroke(240, 100, 100*s.briScale);
     rect(width/4, height*7/9, width/2, height/9);
     fillV(0, 100, 100);
     text("Back to menu", width/2, height*15/18);
