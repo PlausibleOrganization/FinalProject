@@ -33,6 +33,7 @@ void setup() {
 }
 
 void draw() {
+  println(gameMode);
   //turnMod determines whose turn it is
   turnMod = int(gameMode.y % players.length);
   background(0);
@@ -84,12 +85,12 @@ void keyPressed() {
     gameMode = new PVector(2, 0);
   }
   //soley for debugging
-  //  if (key == 'q') {
-  //    players[0].cakes += 40000;
-  //  }
-  //  if (key == 'z') {
-  //    players[1].cakes += 40000;
-  //  }
+  if (key == 'q') {
+    players[0].cakes += 40000;
+  }
+  if (key == 'z') {
+    players[1].cakes += 40000;
+  }
 }
 
 void mouseReleased() {
