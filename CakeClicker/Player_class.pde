@@ -6,7 +6,7 @@ class Player {
   boolean allowEnd, ownCities;
   ArrayList<Unit> units = new ArrayList<Unit>();
   int[] purchases = new int[4];
-  
+
   Player(int id_) {
     id = id_;
     cakes = 0;
@@ -22,6 +22,10 @@ class Player {
   void update() {
     //update clicker
     c.update();
+    //if clicked, add 1 cake
+    cakes = c.clicked ? cakes + 1 : cakes;
+    //set c.clicked to false so it is one cake/click
+    c.clicked = false;
     //once a second, run
     if (ti.cakeGain()) {
       //find total cps, see if they have any cities
@@ -40,8 +44,6 @@ class Player {
       //if no cities are owner, game over
       gameMode = ownCities ? gameMode : new PVector(4, turnMod);
     }
-    //if clicked, add 1 cake
-    cakes = c.clicked ? cakes + 1 : cakes;
   }
 
   void updateUnits() {

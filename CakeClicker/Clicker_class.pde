@@ -15,9 +15,9 @@ class Clicker {
   }
 
   void update() {
-    //if the cake is clicked, set clicked to true
+    //if the cake is pressed and allowed to run, run it
     clicked = (button(loc.x, loc.y, size, size) && allowRun) ? true : false;
-    allowRun = (button(loc.x, loc.y, size, size) && allowRun) ? false : true;
+    allowRun = (button(loc.x, loc.y, size, size) && allowRun) ? false : allowRun;
   }
 
   void display() {
