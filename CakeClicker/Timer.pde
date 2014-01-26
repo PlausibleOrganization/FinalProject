@@ -20,13 +20,14 @@ class timer {
         firstTime = millis();
         called = true;
       }
-      newTime = millis() - firstTime;
       break;
       //if not, set newTime to current time
     default:
       newTime = millis();
+      firstTime = 0;
       break;
-    }
+    } 
+    newTime = millis() - firstTime;
     //if it has been more than secspassed since the last new turn, then new turn
     if (newTime - oldTime >= secspassed) {
       oldTime = newTime;
@@ -34,7 +35,7 @@ class timer {
       turn++;
     }
   }
-  
+
   //begins the next turn
   void endTurn() {
     deselector();
@@ -53,7 +54,7 @@ class timer {
       }
     }
   }
-  
+
   //return the time left in the turn in string
   String viewTime() {
     int t = secspassed - (newTime - oldTime); 
