@@ -313,13 +313,13 @@ class UnitData {
       cost = 50;
       break;
     case 1:
-      cost = 150;
+      cost = 300;
       break;
     case 2:
-      cost = 500;
+      cost = 750;
       break;
     case 3:
-      cost = 40000;
+      cost = 5000;
     }
     cost = int(float(cost) * pow(costGrowth, players[turnMod].purchases[unitId]));
   }
