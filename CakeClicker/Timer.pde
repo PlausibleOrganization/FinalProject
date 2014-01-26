@@ -1,10 +1,11 @@
 class timer {
-  int newTime, oldTime, oldTurn, secspassed, firstTime, oldTime2;
+  int newTime, oldTime, oldTurn, secspassed, firstTime, oldTime2, pauseTime;
   boolean called;
 
   timer(int n) {
     secspassed = n;
     oldTurn = 0;
+    pauseTime = 0;
     called = false;
   }
 
@@ -28,19 +29,28 @@ class timer {
         firstTime = 0;
         break;
       } 
-      newTime = millis() - firstTime;
+      //calculate newTime
+      newTime = millis() - firstTime - pauseTime;
       //if it has been more than secspassed since the last new turn, then new turn
       if (newTime - oldTime >= secspassed) {
+        //set new oldTime
         oldTime = newTime;
+        //end the turn
         endTurn();
         turn++;
       }
       break;
+    default:
+    //calculate the length of time paused
+      pauseTime = millis() - newTime - firstTime;
+      break;
     }
+    println(pauseTime);
   }
 
   //begins the next turn
   void endTurn() {
+    pauseTime = 0;
     deselector();
     //set oldTurn to turn
     oldTurn = turn;
