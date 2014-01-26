@@ -21,6 +21,7 @@ void pauseAndQuit() {
   }
 }
 
+//constructs all the images
 void constructImages() {
   cake = loadImage("Cake.png");
   hole = loadImage("Black_Hole.png");
