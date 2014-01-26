@@ -263,9 +263,9 @@ class TileData {
       menuLoc = new PVector(width-170, 400);
       break;
     case 4:
-      cps = 1000;
+      cps = 500;
       img = witch;
-      cost = 100000;
+      cost = 15000;
       menuLoc = new PVector(width-170, 430);
     }
   }

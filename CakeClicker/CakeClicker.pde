@@ -51,15 +51,21 @@ void draw() {
     //runs deselector if it hasn't been ran yet
     if (!deselectorRan) {
       deselector();
-      deselectorRan = true;
     }
     turn = (turn == -1) ? 0 : turn;
     gameMode.y = turn;
     //update timer, display the game
     ti.time();
     displayGame();
+    //runs deselector if it hasn't been ran yet, sets deselectorRan to true
+    if (!deselectorRan) {
+      deselector();
+      deselectorRan = true;
+    }
     break;
   case 2:
+    //sets deselectorRan to false
+    deselectorRan = false;
     //main pause menu
     if (gameMode.y == 0) {
       //pause menu buttons
@@ -68,6 +74,9 @@ void draw() {
     } 
     break;
   case 3:
+
+    //sets deselectorRan to false
+    deselectorRan = false;
     //the intructions and rules
     in.instructions();
     break;
