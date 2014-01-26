@@ -19,6 +19,7 @@ float costGrowth = 1.4;
 float cityCostGrowth = 1.75;
 int minCityDist = 0;
 int cityFirstLevel = 2;
+boolean deselectorRan;
 
 void setup() {
   size(1000, 800);
@@ -47,6 +48,11 @@ void draw() {
     break;
     //the game itself
   case 1:
+    //runs deselector if it hasn't been ran yet
+    if (!deselectorRan) {
+      deselector();
+      deselectorRan = true;
+    }
     turn = (turn == -1) ? 0 : turn;
     gameMode.y = turn;
     //update timer, display the game

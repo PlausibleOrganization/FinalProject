@@ -18,7 +18,7 @@ void initialize() {
     unitData[i] = new UnitData(i);
   }
   for (int i = 0; i < tileData.length; i++) {
-   tileData[i] = new TileData(i + 1); 
+    tileData[i] = new TileData(i + 1);
   }
   //set turn to Player 1;
   turn = -1;
@@ -31,5 +31,7 @@ void initialize() {
   p = new PauseMenu();
   s = new Settings();
   ti = new timer(60000);
+  //controls initial deselector
+  deselectorRan = false;
 }
 

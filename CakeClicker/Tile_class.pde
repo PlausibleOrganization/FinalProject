@@ -171,7 +171,7 @@ class Tile {
       }
     }
   }
-  
+
   //update the tile
   void update() {
     //update info by improvement
@@ -187,7 +187,9 @@ class Tile {
       level = (level == 0) ? cityFirstLevel : level;
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
-          tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= level ? owner : tiles[i][j].owner;
+          if (tiles[i][j].improvement != 1) {
+            tiles[i][j].owner = tileDist(tiles[int(tileLoc.x)][int(tileLoc.y)], tiles[i][j]) <= level ? owner : tiles[i][j].owner;
+          }
         }
       }
       break;
