@@ -13,25 +13,29 @@ class timer {
     if (turn != oldTurn) {
       endTurn();
     }
-    //if it's the fist turn, use firstTime to prevent glitches
-    switch (turn) {
-    case 0:
-      if (!called) {
-        firstTime = millis();
-        called = true;
+    switch(int(gameMode.x)) {
+    case 1:
+      //if it's the fist turn, use firstTime to prevent glitches
+      switch (turn) {
+      case 0:
+        if (!called) {
+          firstTime = millis();
+          called = true;
+        }
+        break;
+        //if not, set newTime to current time
+      default:
+        firstTime = 0;
+        break;
+      } 
+      newTime = millis() - firstTime;
+      //if it has been more than secspassed since the last new turn, then new turn
+      if (newTime - oldTime >= secspassed) {
+        oldTime = newTime;
+        endTurn();
+        turn++;
       }
       break;
-      //if not, set newTime to current time
-    default:
-      firstTime = 0;
-      break;
-    } 
-    newTime = millis() - firstTime;
-    //if it has been more than secspassed since the last new turn, then new turn
-    if (newTime - oldTime >= secspassed) {
-      oldTime = newTime;
-      endTurn();
-      turn++;
     }
   }
 

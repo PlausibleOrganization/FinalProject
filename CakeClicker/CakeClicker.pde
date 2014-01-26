@@ -64,6 +64,8 @@ void draw() {
     }
     break;
   case 2:
+    //run timer
+    ti.time();
     //sets deselectorRan to false
     deselectorRan = false;
     //main pause menu
@@ -74,7 +76,10 @@ void draw() {
     } 
     break;
   case 3:
-
+    //run timer if turn > -1
+    if (turn > -1) {
+      ti.time();
+    }
     //sets deselectorRan to false
     deselectorRan = false;
     //the intructions and rules
