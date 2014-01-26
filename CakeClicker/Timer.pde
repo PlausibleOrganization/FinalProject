@@ -23,7 +23,6 @@ class timer {
       break;
       //if not, set newTime to current time
     default:
-      newTime = millis();
       firstTime = 0;
       break;
     } 
