@@ -223,6 +223,8 @@ class Unit {
 
             //if they don't have the same owner
             if (owner != u.owner) {
+              //consume all move
+              moved = range;
               //set power to the attacker's atk minus the defender's def
               float power = atk - u.def;
               //modify power by a random number
