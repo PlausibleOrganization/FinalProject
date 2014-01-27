@@ -114,7 +114,7 @@ void lose() {
     text("PLAYER 1 IZ LOZER lOL", width/2, height/2);
     break;
   case 1:
-    text("PLAYER 1 IZ LOZER lOL", width/2, height/2);
+    text("PLAYER 2 IZ LOZER lOL", width/2, height/2);
     break;
   }
 }
