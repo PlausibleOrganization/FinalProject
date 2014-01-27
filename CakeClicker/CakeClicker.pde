@@ -45,6 +45,7 @@ void draw() {
     in.update();
     break;
   case 1:
+    turn = (turn == -1) ? 0 : turn;
     gameMode.y = turn;
     ti.time();
     pauseAndQuit();
@@ -57,7 +58,7 @@ void draw() {
     //main pause menu
     if (gameMode.y == 0) {
       p.resumeButton();
-      p.settingsButton();
+      p.instButton();
     } 
     //settings menu
     else if (gameMode.y == 1) {

@@ -21,7 +21,7 @@ class PauseMenu {
     //if mouse clicked with rectangle, resume game
     gameMode = (button(width/4, height/9, width/2, height/9)) ? new PVector(1, turn) : gameMode;
   }
-  void settingsButton() {
+  void instButton() {
     rectMode(CORNER);
     textAlign(CENTER);
     textSize(20);
@@ -32,9 +32,9 @@ class PauseMenu {
     stroke(240, 100, 100);
     rect(width/4, height/3, width/2, height/9);
     fillV(0, 100, 100);
-    text("Settings", width/2, height*7/18);
+    text("Instructions", width/2, height*7/18);
     //if mouse clicked with rectangle, open shop
-    gameMode = (button(width/4, height/3, width/2, height/9)) ? new PVector(2, 1) : gameMode;
+    gameMode = (button(width/4, height/3, width/2, height/9)) ? new PVector(3, 0) : gameMode;
   }
 }
 
