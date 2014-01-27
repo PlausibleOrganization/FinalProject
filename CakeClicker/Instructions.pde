@@ -35,4 +35,7 @@ class Instruct {
     text("Cake clicker was inspired by the amazing games of Civilization and Cookie Clicker. \n Try to take over the world with your armies. There are two players, P1 in the top left and \n P2 in the bottom right. The cakes in the upper-right corner are your currency, and buildings \n and upgrades will automatically increase how many are produced. All your initial \ncakes will come from clicking the cake. Attack the enemy player with your units and rule the world. \nBuildings can be created on tiles you own, which will be shaded your color. Use your \nunits to capture enemy land, buildings, and cities. Only one unit may be created per city per turn. \n Use the mouse to move and interact with the game. End your turn in the bottom left, and \nturns time out every minute. Press the pause button or press p to access the options menu.", width/2, height/9);
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> fixed glitch

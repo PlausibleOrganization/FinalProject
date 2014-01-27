@@ -22,7 +22,7 @@ void setup() {
   //x==0 is for start menu, x==1 is for the game, x==2 for pause menu
   //y==0 is to indicate the turn during the game
   gameMode = new PVector(0, 0);
-initialize();
+  initialize();
   st = new StartMenu();
   in = new Instruct();
 }

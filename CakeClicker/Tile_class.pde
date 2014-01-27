@@ -38,7 +38,7 @@ class Tile {
     }
   }
   void setCity() {
-    if (cityDist <= 6) {
+    if (cityDist >= 6) {
       improvement = 1;
       for (int i = 0; i < tilesX; i++) {
         for (int j = 0; j < tilesY; j++) {
