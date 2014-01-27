@@ -53,7 +53,7 @@ class Unit {
       img = rocket;
       hp = 1;
       atk = 300;
-      def = 1;
+      def = 0;
       range = 10;
     }
     maxhp = hp;
@@ -291,19 +291,19 @@ class UnitData {
     case 1:
       name = "Soccer Mom Cavalry";
       img = van;
-      cost = 150;
+      cost = 250;
       menuLoc = new PVector(width-170, 370);
       break;
     case 2:
       name = "Farmer";
       img = farmer;
-      cost = 500;
+      cost = 750;
       menuLoc = new PVector(width-170, 400);
       break;
     case 3:
       name = "Rocket";
       img = rocket;
-      cost = 40000;
+      cost = 5000;
       menuLoc = new PVector(width-170, 430);
     }
   }
@@ -315,7 +315,7 @@ class UnitData {
       cost = 50;
       break;
     case 1:
-      cost = 300;
+      cost = 250;
       break;
     case 2:
       cost = 750;
