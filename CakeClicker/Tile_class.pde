@@ -245,7 +245,7 @@ class TileData {
     //determine the info of the tile based on improvement
     switch (improvement) {
     case 1:
-      cps = 1;
+      cps = 2;
       img = city;
       cost = 500;
       menuLoc = new PVector(width-170, 340);
