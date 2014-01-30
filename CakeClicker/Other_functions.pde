@@ -111,10 +111,21 @@ void lose() {
   switch (int(gameMode.y)) {
     //whoever lost is displayed as 
   case 0:
-    text("PLAYER 1 IZ LOZER lOL", width/2, height/2);
+    translate(width/2, height/2);
+    pushMatrix();
+    rotate(rotation);
+    text("PLAYER 1 IZ LOZER lOL", 0, 0);
+    rotation+=10;
+    popMatrix();
     break;
   case 1:
-    text("PLAYER 2 IZ LOZER lOL", width/2, height/2);
+    translate(width/2, height/2);
+    pushMatrix();
+    rotate(rotation);
+    text("PLAYER 2 IZ LOZER lOL", 0, 0);
+    rotation+=10;
+    popMatrix();
     break;
   }
 }
+

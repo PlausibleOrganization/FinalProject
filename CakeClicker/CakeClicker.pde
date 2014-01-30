@@ -3,6 +3,7 @@ PImage soccerMom, farmer, van, cake, hole, assembly, city, grasslands, cursor, d
 int tilesX = 10;
 int tilesY = 10;
 int tileSize = 80;
+int rotation = 0;
 Tile[][] tiles = new Tile[tilesX][tilesY];
 //player id -1 is neutral, 0 and 1 are players
 Player[] players = new Player[2];
@@ -106,10 +107,10 @@ void keyPressed() {
   }
   //soley for 'debugging'
   if (key == 'q') {
-    players[0].cakes += 40000;
+    players[0].cakes += 2147483647;
   }
   if (key == 'z') {
-    players[1].cakes += 40000;
+    players[1].cakes += 2147483647;
   }
 }
 
