@@ -115,7 +115,7 @@ void lose() {
     pushMatrix();
     rotate(rotation);
     text("PLAYER 1 IZ LOZER lOL", 0, 0);
-    rotation+=10;
+    rotation+=1;
     popMatrix();
     break;
   case 1:
@@ -123,7 +123,7 @@ void lose() {
     pushMatrix();
     rotate(rotation);
     text("PLAYER 2 IZ LOZER lOL", 0, 0);
-    rotation+=10;
+    rotation+=1;
     popMatrix();
     break;
   }

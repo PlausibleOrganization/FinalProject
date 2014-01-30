@@ -90,6 +90,9 @@ void draw() {
     //the lose screen
     lose();
     break;
+  case 5:
+
+    break;
   }
 }
 

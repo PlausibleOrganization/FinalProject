@@ -16,7 +16,7 @@ void pauseAndQuit() {
   fillV(0);
   textSize(25);
   //text("Quit to\n main menu", width-102.5, height-85);
-  text("Quit tah \ngame, loser", width-102.5, height-85);
+  text("Quit and \n surrender", width-102.5, height-85);
   if (button(width-175, height-125, 150, 100)) {
     quit();
   }
