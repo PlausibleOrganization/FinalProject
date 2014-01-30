@@ -63,10 +63,19 @@ class Unit {
   void display() {
     displayImage();
     displayNumber();
+    displayHealth();
     //if select display unitMenu
     if (selected) {
       unitMenu();
     }
+  }
+
+  void displayHealth() {
+    colorMode(HSB, 360, 100, 100);
+    fillV(0, 100, 100);
+    rect(loc.x, loc.y, imgSize, 5);
+    fillV(120, 100, 100);
+    rect(loc.x, loc.y, imgSize * hp/maxhp, 5);
   }
 
   //display the image

@@ -104,13 +104,13 @@ void keyPressed() {
   if (key == 'p') {
     gameMode = new PVector(2, 0);
   }
-  //soley for debugging
-//  if (key == 'q') {
-//    players[0].cakes += 40000;
-//  }
-//  if (key == 'z') {
-//    players[1].cakes += 40000;
-//  }
+  //soley for 'debugging'
+  if (key == 'q') {
+    players[0].cakes += 40000;
+  }
+  if (key == 'z') {
+    players[1].cakes += 40000;
+  }
 }
 
 void mouseReleased() {
